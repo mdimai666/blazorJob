@@ -1,0 +1,18 @@
+﻿@page "/items"
+@using BlazorJob.Data
+@using System
+@using System.Collections.Generic
+@using System.Linq
+
+<h1>ITEMS</h1>
+
+
+<List2 Items="posts" />
+
+
+@code{
+
+    List<Post> posts = Enumerable.Range(0,25).Select(s=>{
+        return new Post(){ Id=s, Title=$"Title {s}", Text=$"Text {s}", Date=DateTime.Now };
+    }).ToList();
+}

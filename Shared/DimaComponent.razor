@@ -1,0 +1,43 @@
+﻿
+
+<h3>DimaComponent</h3>
+
+@*<InputCheckbox Value="false" />*@
+
+@*<InputText @bind-value="val.counter" @bind-value:event="oninput" />*@
+
+<button class="btn btn-primary" @onclick="Increment">Increment</button>
+
+<p>
+    Input number - <input @bind-value="val.counter" />
+</p>
+
+<p>
+    Value = @val.counter
+</p>
+
+<div class="z">
+    adfz1a12sss
+</div>
+
+@code {
+
+
+    public class Zero
+    {
+
+        public int counter { get; set; }
+
+        public Zero()
+        {
+
+        }
+    }
+
+    Zero val = new Zero();
+
+    void Increment()
+    {
+        val.counter++;
+    }
+}
