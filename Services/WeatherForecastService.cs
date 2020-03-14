@@ -1,8 +1,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorJob.Models;
 
-namespace BlazorJob.Data
+namespace BlazorJob.Services
 {
     public class WeatherForecastService
     {

@@ -1,134 +1,142 @@
 ﻿@using BlazorJob.Data
-
-
-
-
+@inject PostService postService
 @*<InputCheckbox Value="false" />*@
 
 @*<InputText @bind-value="val.counter" @bind-value:event="oninput" />*@
 
+@if (table != null)
+{
+    <div class="">
+        <div class="form-inline mb-3 justify-content-between">
+            <h3>List2</h3>
 
-<div class="">
-    <div class="form-inline mb-3 justify-content-between">
-        <h3>List2</h3>
-
-        <input class="form-control mr-sm-2"
-               value="@table.SearchText"
-               @oninput="(ui)=> { table.DoSearch(ui.Value.ToString()); }"
-               type="search" placeholder="Search" aria-label="Search">
-        @*    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>*@
+            <input class="form-control mr-sm-2"
+                   value="@table.SearchText"
+                   @oninput="(ui)=> { table.DoSearch(ui.Value.ToString()); }"
+                   type="search" placeholder="Search" aria-label="Search">
+            @*    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>*@
+        </div>
     </div>
-</div>
 
-<table class="table 1table-dark table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Text</th>
-            <th scope="col">Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (table.Count > 0)
-        {
-            @foreach (var item in table.Data)
+
+    <table class="table 1table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Text</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (table.Count > 0)
+            {
+                @foreach (var item in table.Data)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Title</td>
+                        <td>@item.Text</td>
+                        <td>@item.CreatedDate</td>
+                    </tr>
+                }
+            }
+            else
             {
                 <tr>
-                    <td>@item.Id</td>
-                    <td>@item.Title</td>
-                    <td>@item.Text</td>
-                    <td>@item.Date</td>
+                    <td colspan="@table.ColumnCount">
+                        <div class="alert alert-warning text-center">
+                            No data
+                        </div>
+                    </td>
                 </tr>
+
             }
-        }
-        else
-        {
-            <tr>
-                <td colspan="@table.ColumnCount">
-                    <div class="alert alert-warning text-center">
-                        No data
-                    </div>
-                </td>
-            </tr>
+        </tbody>
+    </table>
 
-        }
-    </tbody>
-</table>
-
-@if (table.Count > 0)
-{
-    <div class="d-flex justify-content-between">
-        <nav aria-label="...">
-            <ul class="pagination pagination-sm" style="flex-wrap: wrap;">
-                @if(table.Page>1){
-                    <li class="page-item @(table.Page<=1?"disabled":"")">
-                        <a class="page-link" @onclick="table.Prev" tabindex="-1">&lt;</a>
-                    </li>
-                }
-                @for (int page = 1; page <= table.LastPage; page++)
-                {
-                    int _page = page;
-                    <li class="page-item @(table.Page==page?"active":"")">
-                        <a class="page-link" @onclick="()=> { table.ToPage(_page); }">@(page)</a>
-                    </li>
-
-                }
-                @if(table.Page<table.LastPage){
-                    <li class="page-item @(table.Page>=table.LastPage?"disabled":"")">
-                        <a class="page-link" @onclick="table.Next">&gt;</a>
-                    </li>
-                }
-            </ul>
-        </nav>
-        <span class="p-2">
-
-            count: @table.Data.Count/@table.Count
-        </span>
-
-        <div>
-            <div class="dropdown">
-                <button class="btn dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" 
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @table.InPage
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="min-width: 50px;">
-                    @foreach (var x in table.inPageVariants)
+    @if (table.Count > 0)
+    {
+        <div class="d-flex justify-content-between">
+            <nav aria-label="...">
+                <ul class="pagination pagination-sm" style="flex-wrap: wrap;">
+                    @if (table.Page > 1)
                     {
-                        int _x = x;
-                        <a class="dropdown-item" @onclick="()=>{ table.InPage = _x; }">@x</a>
+                        <li class="page-item @(table.Page<=1?"disabled":"")">
+                            <a class="page-link" @onclick="table.Prev" tabindex="-1">&lt;</a>
+                        </li>
                     }
+                    @for (int page = 1; page <= table.LastPage; page++)
+                    {
+                        int _page = page;
+                        <li class="page-item @(table.Page==page?"active":"")">
+                            <a class="page-link" @onclick="()=> { table.ToPage(_page); }">@(page)</a>
+                        </li>
+
+                    }
+                    @if (table.Page < table.LastPage)
+                    {
+                        <li class="page-item @(table.Page>=table.LastPage?"disabled":"")">
+                            <a class="page-link" @onclick="table.Next">&gt;</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+            <span class="p-2">
+
+                count: @table.Data.Count/@table.Count
+            </span>
+
+            <div>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @table.InPage
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="min-width: 50px;">
+                        @foreach (var x in table.inPageVariants)
+                        {
+                            int _x = x;
+                            <a class="dropdown-item" @onclick="()=>{ table.InPage = _x; }">@x</a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 }
 
 @code{
 
 
     [Parameter]
-    public List<Post> Items { get; set; } = new List<Post>();
+    public List<Post> Items { get; set; } = null;
 
     public DTable table;
 
-    protected override void OnInitialized()
+    async protected override Task OnInitializedAsync()
     {
+        if (Items == null)
+            Items = await postService.ListAsync();
+
         table = new DTable(Items);
+
         //table = new DTable(new List<Post>());
     }
 
     public class DTable
     {
         public int Page => page;
-        public int InPage { 
-            get=>inPage; 
-            set {
-                inPage=value; 
+        public int InPage
+        {
+            get => inPage;
+            set
+            {
+                inPage = value;
                 Update();
             }
         }
-        public int Count => Items.Count;
+        public int Count => Items?.Count ?? 0;
 
         public string SearchText => _searchText;
         string _searchText;
@@ -139,7 +147,7 @@
         int page = 1;
         int inPage = 10;
 
-        public int[] inPageVariants = new int[]{5,10,15,25,50,100,200,1000};
+        public int[] inPageVariants = new int[] { 5, 10, 15, 25, 50, 100, 200, 1000 };
 
         public int ColumnCount = 4;
 
@@ -182,13 +190,15 @@
             }
         }
 
-        
+
 
         public void Update()
         {
-            _data = Items.Where(s =>
+            _data = Items?.Where(s =>
                (string.IsNullOrEmpty(_searchText) || (s.Title.ToLower().Contains(_searchText.ToLower())))
             ).Skip((page - 1) * inPage).Take(inPage).ToList();
+
+
         }
 
         public void DoSearch(string searchText)

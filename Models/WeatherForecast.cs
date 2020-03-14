@@ -1,6 +1,6 @@
 using System;
 
-namespace BlazorJob.Data
+namespace BlazorJob.Models
 {
     public class WeatherForecast
     {

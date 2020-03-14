@@ -15,6 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorJob.Areas.Identity;
 using BlazorJob.Data;
+using BlazorJob.Services;
+using System.IO;
+using System.Reflection;
 
 namespace BlazorJob
 {
@@ -31,15 +34,53 @@ namespace BlazorJob
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services
+                //http://www.npgsql.org/efcore/
+                .AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), o => {
+                    //o.UseNodaTime();
+                    o.SetPostgresVersion(9, 6);
+                }
+                ));
+                //.AddControllers()
+                //.AddNewtonsoftJson()//json patch
+                //.ConfigureApiBehaviorOptions(options =>
+                //{
+                //    //options.SuppressConsumesConstraintForFormFileParameters = true;
+                //    //options.SuppressInferBindingSourcesForParameters = true;
+                //    //options.SuppressModelStateInvalidFilter = true;
+                //    //options.SuppressMapClientErrors = true;
+                //    //options.ClientErrorMapping[404].Link = "https://httpstatuses.com/404";
+                //});
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlite(
+            //        Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services
+                .AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                    {
+                        Title = "API",
+                        Version = "v1",
+                    });
+
+
+                    // Set the comments path for the Swagger JSON and UI.
+                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                    c.IncludeXmlComments(xmlPath);
+                });
+
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<PostService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +99,21 @@ namespace BlazorJob
             }
 
             app.UseHttpsRedirection();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            //https://docs.microsoft.com/ru-ru/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio#add-and-configure-swagger-middleware
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+
+                //set swagger page as index
+                //c.RoutePrefix = string.Empty;
+                c.RoutePrefix = "api";
+            });
+
             app.UseStaticFiles();
 
             app.UseRouting();

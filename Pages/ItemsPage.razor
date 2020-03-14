@@ -4,15 +4,19 @@
 @using System.Collections.Generic
 @using System.Linq
 
+@inject PostService postService
+
 <h1>ITEMS</h1>
 
 
-<List2 Items="posts" />
+<List2  />
 
 
 @code{
+    List<Post> posts = null;
 
-    List<Post> posts = Enumerable.Range(0,25).Select(s=>{
-        return new Post(){ Id=s, Title=$"Title {s}", Text=$"Text {s}", Date=DateTime.Now };
-    }).ToList();
+    async protected override Task OnInitializedAsync()
+    {
+        //posts = await postService.ListAsync();
+    }
 }

@@ -1,0 +1,53 @@
+﻿@using BlazorJob.Data
+
+@inject PostService postService
+@inject NavigationManager navigationManager
+
+
+<EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit" class="form">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+
+    <div class="form-group">
+        <label for="f-title">Title:</label>
+        <InputText id="f-title" @bind-Value="_post.Title" class="form-control"/>
+
+    </div>
+
+    <div class="form-group">
+        <label for="f-text">Text:</label>
+        <InputTextArea id="f-text" @bind-Value="_post.Text" class="form-control"/>
+
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+</EditForm>
+
+
+@code{
+    private Post _post = new Post();
+    private bool _formInvalid = true;
+    private EditContext _editContext;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(_post);
+
+        _editContext.OnFieldChanged += (_, __) =>
+        {
+            _formInvalid = !_editContext.Validate();
+            StateHasChanged();
+        };
+    }
+
+    async private void HandleValidSubmit()
+    {
+        Post addedPost = await postService.AddAsync(_post);
+        Console.WriteLine($"added ${_post.Title}");
+        navigationManager.NavigateTo("/items");
+    }
+
+}
