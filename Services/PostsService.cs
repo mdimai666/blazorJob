@@ -40,6 +40,11 @@ namespace BlazorJob.Services
 
             return result.Entity;
         }
+
+        void Test()
+        {
+            // ef.Model.
+        }
     }
 
 }

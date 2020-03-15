@@ -22,10 +22,11 @@
     <table class="table 1table-dark table-striped">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Text</th>
-                <th scope="col">Date</th>
+                <th scope="col" class="">#</th>
+                <th scope="col" class="" width="100%">Title</th>
+                <th scope="col" class="">Author</th>
+                <th scope="col" class="">Date</th>
+                <th scope="col" class="">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -34,10 +35,11 @@
                 @foreach (var item in table.Data)
                 {
                     <tr>
-                        <td>@item.Id</td>
-                        <td>@item.Title</td>
-                        <td>@item.Text</td>
-                        <td>@item.CreatedDate</td>
+                        <td class="nowrap">@item.Id</td>
+                        <td class="">@item.Title</td>
+                        <td class="nowrap">@item.Author</td>
+                        <td class="nowrap">@item.Date</td>
+                        <td class="nowrap">@item.Status</td>
                     </tr>
                 }
             }

@@ -20,22 +20,37 @@ namespace BlazorJob.Data
                 .UseSerialColumn();
 
 
-            entity.Property(e => e.CreatedDate)
+            entity.Property(e => e.Date)
                 .HasColumnName("created_date")
                 .HasDefaultValueSql("now()");
 
-            entity.Property(e => e.UpdatedDate)
+            entity.Property(e => e.Modified)
                 .HasColumnName("updated_date")
                 .HasDefaultValueSql("now()");
 
             entity.Property(e => e.Title)
                 .HasColumnName("title")
-                .IsRequired()
-                .HasDefaultValueSql("0");
+                .IsRequired();
 
-            entity.Property(e => e.Text)
-                .HasColumnName("text")
-                .HasDefaultValueSql("0");
+            entity.Property(e => e.Content)
+                .HasColumnName("content")
+                .HasDefaultValue("");
+
+            entity.Property(e => e.Author)
+                .HasColumnName("author")
+                .HasDefaultValue(0);
+
+            entity.Property(e => e.Parent)
+                .HasColumnName("parent")
+                .HasDefaultValue(0);
+
+            entity.Property(e => e.Status)
+                .HasColumnName("status")
+                .HasDefaultValue(Post.defaultStatus);
+
+            entity.Property(e => e.Type)
+                .HasColumnName("type")
+                .HasDefaultValue(Post.defaultType);
         }
 
 
