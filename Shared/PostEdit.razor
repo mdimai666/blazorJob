@@ -4,6 +4,7 @@
 @inject NavigationManager navigationManager
 
 
+@if(_editContext != null){
 <EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit" class="form">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
@@ -55,15 +56,22 @@
     </div>
 
 </EditForm>
+}
 
 
-@code{
+@code {
+
+    
     private Post post = new Post();
     private bool _formInvalid = true;
     private EditContext _editContext;
 
-    protected override void OnInitialized()
+   
+
+    async protected override Task OnInitializedAsync()
     {
+        if(ID != null) post = await postService.GetAsync(ID??-1);
+
         _editContext = new EditContext(post);
 
         _editContext.OnFieldChanged += (_, __) =>
@@ -75,9 +83,16 @@
 
     async private void HandleValidSubmit()
     {
-        Post addedPost = await postService.AddAsync(post);
+        Post addedPost;
+        if(ID != null) 
+          addedPost = await postService.UpdateAsync(post);
+        else 
+          addedPost = await postService.AddAsync(post);
+
         Console.WriteLine($"added ${post.Title}");
         navigationManager.NavigateTo("/items");
     }
 
+    [Parameter]
+    public int? ID {get;set;} = null;
 }

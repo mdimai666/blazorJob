@@ -1,0 +1,17 @@
+﻿@page "/edit"
+@page "/edit/{Id:int}"
+
+@using BlazorJob.Data
+@using System
+@using System.Collections.Generic
+@using System.Linq
+
+<h1>Add post</h1>
+
+
+<PostEdit id="@Id" />
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+}

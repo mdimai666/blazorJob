@@ -36,7 +36,11 @@
                 {
                     <tr>
                         <td class="nowrap">@item.Id</td>
-                        <td class="">@item.Title</td>
+                        <td class="">
+                            <NavLink href="@($"/edit/{item.Id}")">
+                                @item.Title
+                            </NavLink>
+                        </td>
                         <td class="nowrap">@item.Author</td>
                         <td class="nowrap">@item.Date</td>
                         <td class="nowrap">@item.Status</td>

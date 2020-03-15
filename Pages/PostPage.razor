@@ -1,0 +1,27 @@
+﻿@page "/post/{Id:int}"
+@inject PostService postService
+
+
+
+@if(@post != null){
+    <h1>@post.Title</h1>
+
+    <p>@post.Content</p>
+} else {
+    <div>
+        Empty
+    </div>
+}
+
+
+
+@code {
+    async protected override Task OnInitializedAsync()
+    {
+        post = await postService.GetAsync(Id ?? -1);
+    }
+
+    [Parameter]
+    public int? Id { get; set; }
+    public Post post {get;set;} = null;
+}

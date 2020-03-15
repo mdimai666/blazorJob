@@ -30,6 +30,11 @@ namespace BlazorJob.Services
             return await ef.Posts.ToListAsync();
         }
 
+        async public Task<Post> GetAsync(int id)
+        {
+            return await ef.Posts.FirstOrDefaultAsync(s => s.Id == id);
+        }
+
         async public Task<Post> AddAsync(Post post)
         {
 
@@ -39,6 +44,31 @@ namespace BlazorJob.Services
             Debug.WriteLine($"add post {id}");
 
             return result.Entity;
+        }
+
+        async public Task<Post> UpdateAsync(Post post)
+        {
+            Post ePost = await GetAsync(post.Id);
+
+            if(ePost != null){
+
+                ePost.Title = post.Title;
+                ePost.Content = post.Content;
+                ePost.Author = post.Author;
+                ePost.Type = post.Type;
+                ePost.Parent = post.Parent;
+                ePost.Status = post.Status;
+                ePost.Modified = DateTime.Now;
+
+                var result = ef.Posts.Update(ePost);
+
+                int id = await result.Context.SaveChangesAsync();
+
+                return result.Entity;
+            }
+            else {
+                return null;
+            }
         }
 
         void Test()

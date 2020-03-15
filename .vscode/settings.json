@@ -21,5 +21,10 @@
         "bin": true,
         "wwwroot/css/style.css": true,
         "wwwroot/css/style.css.map": true,
-    }
+    },
+    "emmet.includeLanguages": {
+        "razor": "html",
+        "aspnetcorerazor": "html"
+    },
+    "emmet.triggerExpansionOnTab": true
 }
