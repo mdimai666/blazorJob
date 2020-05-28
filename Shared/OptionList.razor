@@ -1,0 +1,224 @@
+﻿@using BlazorJob.Data
+@inject OptionsService optionsService
+@*<InputCheckbox Value="false" />*@
+
+@*<InputText @bind-value="val.counter" @bind-value:event="oninput" />*@
+
+@if (table != null)
+{
+    <div class="">
+        <div class="form-inline mb-3 justify-content-between">
+            <h3>List2</h3>
+
+            <input class="form-control mr-sm-2"
+                   value="@table.SearchText"
+                   @oninput="(ui)=> { table.DoSearch(ui.Value.ToString()); }"
+                   type="search" placeholder="Search" aria-label="Search">
+            @*    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>*@
+        </div>
+    </div>
+
+
+    <table class="table 1table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="">#</th>
+                <th scope="col" class="" width="50%">Key</th>
+                <th scope="col" class="" width="50%">Value</th>
+                <th scope="col" class="">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (table.Count > 0)
+            {
+                @foreach (var item in table.Data)
+                {
+                    <tr>
+                        <td class="nowrap">@item.Id</td>
+                        <td class="">
+                            <NavLink href="@($"/editoption/{item.Id}")">
+                                @item.Key
+                            </NavLink>
+                        </td>
+                        <td class="nowrap">@item.Value</td>
+                        <td class="nowrap">@item.Status</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="@table.ColumnCount">
+                        <div class="alert alert-warning text-center">
+                            No data
+                        </div>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+    @if (table.Count > 0)
+    {
+        <div class="d-flex justify-content-between">
+            <nav aria-label="...">
+                <ul class="pagination pagination-sm" style="flex-wrap: wrap;">
+                    @if (table.Page > 1)
+                    {
+                        <li class="page-item @(table.Page<=1?"disabled":"")">
+                            <a class="page-link" @onclick="table.Prev" tabindex="-1">&lt;</a>
+                        </li>
+                    }
+                    @for (int page = 1; page <= table.LastPage; page++)
+                    {
+                        int _page = page;
+                        <li class="page-item @(table.Page==page?"active":"")">
+                            <a class="page-link" @onclick="()=> { table.ToPage(_page); }">@(page)</a>
+                        </li>
+
+                    }
+                    @if (table.Page < table.LastPage)
+                    {
+                        <li class="page-item @(table.Page>=table.LastPage?"disabled":"")">
+                            <a class="page-link" @onclick="table.Next">&gt;</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+            <span class="p-2">
+
+                count: @table.Data.Count/@table.Count
+            </span>
+
+            <div>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @table.InPage
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="min-width: 50px;">
+                        @foreach (var x in table.inPageVariants)
+                        {
+                            int _x = x;
+                            <a class="dropdown-item" @onclick="()=>{ table.InPage = _x; }">@x</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@code{
+
+
+    [Parameter]
+    public List<Option> Items { get; set; } = null;
+
+    public DTable table;
+
+    async protected override Task OnInitializedAsync()
+    {
+        if (Items == null)
+            Items = await optionsService.List();
+
+        table = new DTable(Items);
+
+        //table = new DTable(new List<Post>());
+    }
+
+    public class DTable
+    {
+        public int Page => page;
+        public int InPage
+        {
+            get => inPage;
+            set
+            {
+                inPage = value;
+                Update();
+            }
+        }
+        public int Count => Items?.Count ?? 0;
+
+        public string SearchText => _searchText;
+        string _searchText;
+
+        public List<Option> _data = new List<Option>();
+
+
+        int page = 1;
+        int inPage = 10;
+
+        public int[] inPageVariants = new int[] { 5, 10, 15, 25, 50, 100, 200, 1000 };
+
+        public int ColumnCount = 4;
+
+        protected List<Option> Items;
+
+        public DTable(List<Option> items)
+        {
+            this.Items = items;
+            Update();
+        }
+
+        public void Next()
+        {
+            page++;
+            Update();
+        }
+
+        public void Prev()
+        {
+            page--;
+            Update();
+        }
+
+        public void ToPage(int page)
+        {
+            if (page < 1) this.page = 1;
+            else if (page > LastPage) this.page = LastPage;
+            else this.page = page;
+            Update();
+        }
+
+
+        public int LastPage
+        {
+            get
+            {
+                int p = Items.Count / InPage;
+
+                return (p * InPage < Items.Count) ? p + 1 : p;
+            }
+        }
+
+
+
+        public void Update()
+        {
+            _data = Items?.Where(s =>
+               (string.IsNullOrEmpty(_searchText) || (s.Key.ToLower().Contains(_searchText.ToLower())))
+            ).Skip((page - 1) * inPage).Take(inPage).ToList();
+
+
+        }
+
+        public void DoSearch(string searchText)
+        {
+            //if (string.IsNullOrEmpty(searchText)) return;
+
+            this._searchText = searchText;
+            Update();
+
+        }
+
+        public List<Option> Data => _data;
+
+
+    }
+
+
+
+}

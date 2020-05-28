@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace BlazorJob.Data
 {
 
-    public class OptionEntityConfiguration : IEntityTypeConfiguration<Option>
+    public class MetaEntityConfiguration : IEntityTypeConfiguration<Meta>
     {
-        public void Configure(EntityTypeBuilder<Option> entity)
+        public void Configure(EntityTypeBuilder<Meta> entity)
         {
-            entity.ToTable("options");
+            entity.ToTable("meta");
 
             entity.Property(e => e.Id)
                 .HasColumnName("id")
@@ -46,6 +46,9 @@ namespace BlazorJob.Data
 
             entity.Property(e => e.Author)
                 .HasColumnName("author");
+
+            entity.Property(e=>e.PostId)
+                .HasColumnName("post_id");
 
 
 

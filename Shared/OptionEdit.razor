@@ -1,6 +1,6 @@
 ﻿@using BlazorJob.Data
 
-@inject PostService postService
+@inject OptionsService optionsService;
 @inject NavigationManager navigationManager
 
 
@@ -11,25 +11,20 @@
         <ValidationSummary />
 
         <div class="form-group">
-            <label for="f-title">Title:</label>
-            <InputText id="f-title" @bind-Value="post.Title" class="form-control" />
+            <label for="f-title">Key:</label>
+            <InputText id="f-title" @bind-Value="post.Key" class="form-control" />
 
         </div>
 
         <div class="form-group">
-            <label for="f-content">Content:</label>
-            <InputTextArea id="f-content" @bind-Value="post.Content" class="form-control" />
+            <label for="f-content">Val:</label>
+            <InputTextArea id="f-content" @bind-Value="post.Value" class="form-control" />
 
         </div>
 
         <div class="form-group">
             <label for="f-author">Author</label>
             <InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label for="f-parent">Parent</label>
-            <InputNumber id="f-parent" @bind-Value="post.Parent" class="form-control" />
         </div>
 
         <div class="form-group">
@@ -64,14 +59,14 @@
 @code {
 
 
-    private Post post = new Post();
+    private Option post = new Option();
     private bool _formInvalid = true;
     private EditContext _editContext;
     
 
     async protected override Task OnInitializedAsync()
     {
-        if (ID != null) post = await postService.Get(ID ?? -1);
+        if (ID != null) post = await optionsService.Get(ID ?? -1);
 
         _editContext = new EditContext(post);
 
@@ -84,20 +79,20 @@
 
     async private void HandleValidSubmit()
     {
-        Post addedPost;
+        Option addedPost;
 
         bool isUpdate = ID != null;
 
         if (isUpdate)
-            addedPost = await postService.Update(post.Id, post);
+            addedPost = await optionsService.Update(post.Id, post);
         else
-            addedPost = await postService.Add(post);
+            addedPost = await optionsService.Add(post);
 
         if (isUpdate)
-            Console.WriteLine($"updated ${post.Title}");
+            Console.WriteLine($"updated ${post.Key}");
         else
-            Console.WriteLine($"added ${post.Title}");
-        navigationManager.NavigateTo("/items");
+            Console.WriteLine($"added ${post.Key}");
+        navigationManager.NavigateTo("/options");
     }
 
     async private void DeletePost()
@@ -108,7 +103,7 @@
 
         if (!isUpdate) return;
 
-        bool result = await postService.Delete((int)ID);
+        bool result = await optionsService.Delete((int)ID);
 
         navigationManager.NavigateTo("/");
 

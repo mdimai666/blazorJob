@@ -1,15 +1,15 @@
-﻿@page "/edit"
-@page "/edit/{Id:long}"
+﻿@page "/editoption"
+@page "/editoption/{Id:long}"
 
 @using BlazorJob.Data
 @using System
 @using System.Collections.Generic
 @using System.Linq
 
-<h1>Add post</h1>
+<h1>Add option</h1>
 
 
-<PostEdit id="@Id" />
+<OptionEdit id="@Id" />
 
 @code {
     [Parameter]

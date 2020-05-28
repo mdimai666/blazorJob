@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace BlazorJob.Services
 {
-    public class OptionsService : StandartModelService<Option>
+    public class MetaService : StandartModelService<Meta>
     {
-        public OptionsService(ApplicationDbContext dbContext) : base(dbContext)
+        public MetaService(ApplicationDbContext dbContext) : base(dbContext)
         {
 
         }

@@ -1,0 +1,22 @@
+﻿@page "/options"
+@using BlazorJob.Data
+@using System
+@using System.Collections.Generic
+@using System.Linq
+
+@*@inject OptionsService optionsService*@
+
+<h1>Options</h1>
+
+
+<OptionList/>
+
+
+@code{
+    //List<Post> posts = null;
+
+    async protected override Task OnInitializedAsync()
+    {
+        //posts = await postService.ListAsync();
+    }
+}

@@ -17,7 +17,8 @@ namespace BlazorJob.Data
         }
 
         public virtual DbSet<Post> Posts { get; set; }
-        public virtual DbSet<OptionEntity> Options { get; set; }
+        public virtual DbSet<Option> Options { get; set; }
+        public virtual DbSet<Meta> MetaList { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder){
             base.OnModelCreating(builder);
@@ -25,6 +26,7 @@ namespace BlazorJob.Data
             builder.UseSerialColumns();
             builder.ApplyConfiguration(new PostEntityConfiguration());
             builder.ApplyConfiguration(new OptionEntityConfiguration());
+            builder.ApplyConfiguration(new MetaEntityConfiguration());
 
             OnModelCreatingPartial(builder);
         }

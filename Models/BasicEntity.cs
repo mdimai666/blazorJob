@@ -35,7 +35,7 @@ namespace BlazorJob.Models
         public string Value { get; set; }
     }
 
-    public class OptionEntity : SimpleEntity
+    public sealed class Option : SimpleEntity
     {
         [Required]
         public string Key { get; set; }
@@ -71,8 +71,16 @@ namespace BlazorJob.Models
         public static readonly string defaultType = "post";
     }
 
-    public class Meta : OptionEntity
+    public sealed class Meta : SimpleEntity
     {
+        [Required]
+        public string Key { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime Modified { get; set; }
+
+        public static readonly string defaultStatus = "";
+        public static readonly string defaultType = "";
+
         public long PostId { get; set; }
     }
 
