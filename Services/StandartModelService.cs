@@ -10,13 +10,14 @@ using BlazorJob.Data;
 using BlazorJob.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Configuration;
 
 namespace BlazorJob.Services
 {
 
     public class StandartModelService<TEntity> : BasicModelService<TEntity> where TEntity : class, IBasicEntity
     {
-        public StandartModelService(ApplicationDbContext dbContext) : base(dbContext)
+        public StandartModelService(ApplicationDbContext dbContext, IConfiguration configuration) : base(dbContext, configuration)
         {
 
         }

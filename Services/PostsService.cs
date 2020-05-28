@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 namespace BlazorJob.Services
 {
     using BlazorJob.Models;
+    using Microsoft.Extensions.Configuration;
 
 
 
@@ -32,12 +33,9 @@ namespace BlazorJob.Services
 #if !POST_OLD
     public class PostService : StandartModelService<Post>
     {
-        public PostService(ApplicationDbContext dbContext) : base(dbContext)
+        public PostService(ApplicationDbContext dbContext, IConfiguration configuration) : base(dbContext, configuration)
         {
-
         }
-
-
     }
 #endif
 

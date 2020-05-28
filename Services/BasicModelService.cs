@@ -6,10 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Transactions;
 using BlazorJob.Data;
 using BlazorJob.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Configuration;
+
+
 
 namespace BlazorJob.Services
 {
@@ -27,12 +31,32 @@ namespace BlazorJob.Services
         protected const int DEFAULT_LIMIT = 20;
 
         protected readonly ApplicationDbContext ef;
+        protected readonly IConfiguration _configuration;
 
         public DbSet<TEntity> Items => ef.Set<TEntity>();
 
-        public BasicModelService(ApplicationDbContext dbContext)
+        const bool ALWAYS_USE_NEW_CONTEXT = true;
+        readonly string _connectionString;
+
+        public BasicModelService(ApplicationDbContext dbContext, IConfiguration configuration)
         {
             ef = dbContext;
+            _configuration = configuration;
+
+            _connectionString = _configuration.GetConnectionString("DefaultConnection"); 
+        }
+
+        protected ApplicationDbContext GetEFContext()
+        {
+            if (ALWAYS_USE_NEW_CONTEXT) {
+                var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+                optionsBuilder.UseNpgsql(_connectionString);
+                return new ApplicationDbContext(optionsBuilder.Options);
+            } else
+            {
+                return ef;
+            }
+
         }
 
         async public virtual Task<TEntity> Add(TEntity entity)
@@ -62,7 +86,29 @@ namespace BlazorJob.Services
 
         async public virtual Task<List<TEntity>> List()
         {
-            return await ef.Set<TEntity>().Take(DEFAULT_LIMIT).ToListAsync();
+#if FALSE
+            List<TEntity> items;
+
+            using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                items = await ef.Set<TEntity>().Take(DEFAULT_LIMIT).ToListAsync();
+                ts.Complete();
+            }
+
+            return items;  
+#endif
+            //return await ef.Set<TEntity>().Take(DEFAULT_LIMIT).ToListAsync();
+
+           
+
+            List<TEntity> items;
+
+            using (var context = GetEFContext())
+            {
+                items = await context.Set<TEntity>().Take(DEFAULT_LIMIT).ToListAsync();
+            }
+
+            return items;
         }
 
         async public virtual Task<List<TEntity>> List(Expression<Func<TEntity, bool>> predicate, int offset = 0, int limit = DEFAULT_LIMIT)

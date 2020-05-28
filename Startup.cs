@@ -57,7 +57,8 @@ namespace BlazorJob
             //        Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
@@ -80,6 +81,11 @@ namespace BlazorJob
 
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
+            //services.AddSingleton<PostService>(x =>
+            //{
+            //    var s = x.GetService<ApplicationDbContext>();
+            //    return new PostService(s);
+            //});
             services.AddScoped<PostService>();
             services.AddScoped<OptionsService>();
             services.AddScoped<MetaService>();
