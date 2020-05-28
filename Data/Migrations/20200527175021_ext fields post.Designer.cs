@@ -4,72 +4,23 @@ using System.Collections.Generic;
 using BlazorJob.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BlazorJob.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200527175021_ext fields post")]
+    partial class extfieldspost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "3.1.4")
+                .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            modelBuilder.Entity("BlazorJob.Models.OptionEntity", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn);
-
-                    b.Property<long>("Author")
-                        .HasColumnName("author")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("Date")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("created_date")
-                        .HasColumnType("timestamp without time zone")
-                        .HasDefaultValueSql("now()");
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnName("key")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Modified")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("updated_date")
-                        .HasColumnType("timestamp without time zone")
-                        .HasDefaultValueSql("now()");
-
-                    b.Property<string>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("status")
-                        .HasColumnType("text")
-                        .HasDefaultValue("");
-
-                    b.Property<string>("Type")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("type")
-                        .HasColumnType("text")
-                        .HasDefaultValue("");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnName("value")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("options");
-                });
 
             modelBuilder.Entity("BlazorJob.Models.Post", b =>
                 {

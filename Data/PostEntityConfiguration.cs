@@ -51,6 +51,26 @@ namespace BlazorJob.Data
             entity.Property(e => e.Type)
                 .HasColumnName("type")
                 .HasDefaultValue(Post.defaultType);
+
+            ////
+            entity.Property(e => e.Slug)
+                .HasColumnName("slug");
+
+            entity.Property(e => e.Tags)
+                .HasColumnName("tags");
+
+            entity.Property(e => e.Category)
+                .HasColumnName("category")
+                .HasDefaultValue(0);
+
+            entity.Property(e => e.Guid)
+                .HasColumnName("guid");
+
+            entity.Property(e => e.Excerpt)
+                .HasColumnName("excerpt")
+                .HasDefaultValue("");
+
+
         }
 
 

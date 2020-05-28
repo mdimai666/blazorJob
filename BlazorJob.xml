@@ -4,5 +4,22 @@
         <name>BlazorJob</name>
     </assembly>
     <members>
+        <member name="T:BlazorJob.Models.ICascadeIterator`1">
+            <summary>
+            ����� ��������� ����� �������� ������ � �������� � �������� ��� ���
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:BlazorJob.Models.IOperatable">
+            <summary>
+            ��������� ��� ������ ����� �� ����������� ��� �������
+            </summary>
+        </member>
+        <member name="T:BlazorJob.Models.WpTerm">
+            <summary>
+            Это просто элементы типа теги или элемент категории из дерева, они просто есть и с id
+            Оно структурируется через term_taxonomy
+            </summary>
+        </member>
     </members>
 </doc>

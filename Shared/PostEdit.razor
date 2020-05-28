@@ -4,73 +4,74 @@
 @inject NavigationManager navigationManager
 
 
-@if(_editContext != null){
-<EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit" class="form">
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
+@if (_editContext != null)
+{
+    <EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit" class="form">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <div class="form-group">
-        <label for="f-title">Title:</label>
-        <InputText id="f-title" @bind-Value="post.Title" class="form-control"/>
+        <div class="form-group">
+            <label for="f-title">Title:</label>
+            <InputText id="f-title" @bind-Value="post.Title" class="form-control" />
 
-    </div>
+        </div>
 
-    <div class="form-group">
-        <label for="f-content">Content:</label>
-        <InputTextArea id="f-content" @bind-Value="post.Content" class="form-control"/>
+        <div class="form-group">
+            <label for="f-content">Content:</label>
+            <InputTextArea id="f-content" @bind-Value="post.Content" class="form-control" />
 
-    </div>
+        </div>
 
-    <div class="form-group">
-      <label for="f-author">Author</label>
-      <InputNumber id="f-author" @bind-Value="post.Author" class="form-control"/>
-    </div>
+        <div class="form-group">
+            <label for="f-author">Author</label>
+            <InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />
+        </div>
 
-    <div class="form-group">
-      <label for="f-parent">Parent</label>
-      <InputNumber id="f-parent" @bind-Value="post.Parent" class="form-control"/>
-    </div>
+        <div class="form-group">
+            <label for="f-parent">Parent</label>
+            <InputNumber id="f-parent" @bind-Value="post.Parent" class="form-control" />
+        </div>
 
-    <div class="form-group">
-      <label for="f-status">Status</label>
-      <InputSelect id="f-status" @bind-Value="post.Status" class="form-control" >
-        @foreach (var item in Post.StatusList)
-        {
-            <option value="@item"  >@item</option>
-        }
-      </InputSelect>
-    </div>
+        <div class="form-group">
+            <label for="f-status">Status</label>
+            <InputSelect id="f-status" @bind-Value="post.Status" class="form-control">
+                @foreach (var item in Post.StatusList)
+                    {
+                    <option value="@item">@item</option>
+                    }
+            </InputSelect>
+        </div>
 
-    <div class="form-group">
-      <label for="f-type">Type</label>
-      <InputSelect id="f-type" @bind-Value="post.Type" class="form-control" >
-        @foreach (var item in Post.TypeList)
-        {
-            <option value="@item"  >@item</option>
-        }
-      </InputSelect>
-    </div>
+        <div class="form-group">
+            <label for="f-type">Type</label>
+            <InputSelect id="f-type" @bind-Value="post.Type" class="form-control">
+                @foreach (var item in Post.TypeList)
+                    {
+                    <option value="@item">@item</option>
+                    }
+            </InputSelect>
+        </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-danger" @onclick="() => DeletePost()">Delete</button>
+        </div>
 
-</EditForm>
+    </EditForm>
 }
 
 
 @code {
 
-    
+
     private Post post = new Post();
     private bool _formInvalid = true;
     private EditContext _editContext;
-
-   
+    
 
     async protected override Task OnInitializedAsync()
     {
-        if(ID != null) post = await postService.GetAsync(ID??-1);
+        if (ID != null) post = await postService.Get(ID ?? -1);
 
         _editContext = new EditContext(post);
 
@@ -84,15 +85,38 @@
     async private void HandleValidSubmit()
     {
         Post addedPost;
-        if(ID != null) 
-          addedPost = await postService.UpdateAsync(post);
-        else 
-          addedPost = await postService.AddAsync(post);
 
-        Console.WriteLine($"added ${post.Title}");
+        bool isUpdate = ID != null;
+
+        if (isUpdate)
+            addedPost = await postService.Update(post.Id, post);
+        else
+            addedPost = await postService.Add(post);
+
+        if (isUpdate)
+            Console.WriteLine($"updated ${post.Title}");
+        else
+            Console.WriteLine($"added ${post.Title}");
         navigationManager.NavigateTo("/items");
     }
 
+    async private void DeletePost()
+    {
+        bool isUpdate = ID != null;
+
+        Console.WriteLine($"Delete: isUpdate={isUpdate}");
+
+        if (!isUpdate) return;
+
+        bool result = await postService.Delete((int)ID);
+
+        navigationManager.NavigateTo("/");
+
+        
+    }
+
+    
+
     [Parameter]
-    public int? ID {get;set;} = null;
+    public int? ID { get; set; } = null;
 }

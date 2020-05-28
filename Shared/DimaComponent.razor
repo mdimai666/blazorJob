@@ -38,6 +38,7 @@
 
     void Increment()
     {
-        val.counter++;
+        Random r = new Random();
+        val.counter += r.Next(10);
     }
 }

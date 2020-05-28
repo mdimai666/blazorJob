@@ -17,12 +17,14 @@ namespace BlazorJob.Data
         }
 
         public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<OptionEntity> Options { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder){
             base.OnModelCreating(builder);
 
             builder.UseSerialColumns();
             builder.ApplyConfiguration(new PostEntityConfiguration());
+            builder.ApplyConfiguration(new OptionEntityConfiguration());
 
             OnModelCreatingPartial(builder);
         }

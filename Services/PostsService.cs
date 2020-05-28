@@ -1,3 +1,6 @@
+//#define POST_OLD
+
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -5,17 +8,44 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BlazorJob.Data;
-using BlazorJob.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
+
+
 namespace BlazorJob.Services
 {
-    public class PostService
+    using BlazorJob.Models;
+
+
+
+#if POST_OLD
+    public class PostService : PostServiceOld
+    {
+        public PostService(ApplicationDbContext dataContext) : base(dataContext)
+        {
+        }
+    } 
+#endif
+
+#if !POST_OLD
+    public class PostService : StandartModelService<Post>
+    {
+        public PostService(ApplicationDbContext dbContext) : base(dbContext)
+        {
+
+        }
+
+
+    }
+#endif
+
+    public class PostServiceOld
     {
         ApplicationDbContext ef;
 
-        public PostService(ApplicationDbContext dataContext/*, HttpClient client*/)
+        public PostServiceOld(ApplicationDbContext dataContext/*, HttpClient client*/)
         {
             ef = dataContext;
         }
@@ -35,6 +65,11 @@ namespace BlazorJob.Services
             return await ef.Posts.FirstOrDefaultAsync(s => s.Id == id);
         }
 
+        async public Task<Post> GetAsync(long id)
+        {
+            return await ef.Posts.FirstOrDefaultAsync(s => s.Id == id);
+        }
+
         async public Task<Post> AddAsync(Post post)
         {
 
@@ -50,7 +85,8 @@ namespace BlazorJob.Services
         {
             Post ePost = await GetAsync(post.Id);
 
-            if(ePost != null){
+            if (ePost != null)
+            {
 
                 ePost.Title = post.Title;
                 ePost.Content = post.Content;
@@ -66,7 +102,8 @@ namespace BlazorJob.Services
 
                 return result.Entity;
             }
-            else {
+            else
+            {
                 return null;
             }
         }
@@ -77,4 +114,6 @@ namespace BlazorJob.Services
         }
     }
 
+
 }
+

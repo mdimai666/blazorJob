@@ -123,7 +123,7 @@
     async protected override Task OnInitializedAsync()
     {
         if (Items == null)
-            Items = await postService.ListAsync();
+            Items = await postService.List();
 
         table = new DTable(Items);
 
