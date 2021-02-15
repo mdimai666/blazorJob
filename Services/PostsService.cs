@@ -33,7 +33,7 @@ namespace BlazorJob.Services
 #if !POST_OLD
     public class PostService : StandartModelService<Post>
     {
-        public PostService(ApplicationDbContext dbContext, IConfiguration configuration) : base(dbContext, configuration)
+        public PostService(IConfiguration configuration, IServiceProvider serviceProvider) : base(configuration, serviceProvider)
         {
         }
     }

@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="no"?>
+<svg width="200" height="250" version="1.1" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 130 30">
+
+    <g class="red-ui-flow-node red-ui-flow-node-group" id="662d4c92.fe50d4" transform="translate(0,0)">
+        <rect class="red-ui-flow-node " rx="5" ry="5" fill="#fdd0a2" width="120" height="30"></rect>
+        <g class="red-ui-flow-node-icon-group" x="0" y="0" transform="" style="pointer-events: none;">
+            <rect x="0" y="0" class="red-ui-flow-node-icon-shade" width="30" height="30"></rect>
+            <!-- <image xlink:href="icons/node-red/function.svg" class="red-ui-flow-node-icon" x="0" width="30" height="30"
+                style="" y="0"></image> -->
+            <path d="M 30 1 l 0 28" class="red-ui-flow-node-icon-shade-border"></path>
+        </g>
+        <g class="red-ui-flow-node-label node_label_italic" transform="translate(38,16)"><text
+                class="red-ui-flow-node-label-text" x="0" y="0">puppeteer</text></g>
+        <g class="red-ui-flow-node-status-group" style="display: none;">
+            <rect class="red-ui-flow-node-status" x="6" y="1" width="9" height="9" rx="2" ry="2" stroke-width="3">
+            </rect><text class="red-ui-flow-node-status-label" x="20" y="10"></text>
+        </g>
+        <g class="red-ui-flow-node-changed hide" transform="translate(110, -2)">
+            <circle r="5"></circle>
+        </g>
+        <g class="red-ui-flow-node-error hide" transform="translate(110, -2)">
+            <path d="M -5,4 l 10,0 -5,-8 z"></path>
+        </g>
+        <g class="red-ui-flow-port-input" transform="translate(-5,10)">
+            <rect class="red-ui-flow-port" rx="3" ry="3" width="10" height="10"></rect>
+        </g>
+        <g class="red-ui-flow-port-output" transform="translate(115,10)">
+            <rect rx="3" ry="3" width="10" height="10" class="red-ui-flow-port"></rect>
+        </g>
+    </g>
+</svg>

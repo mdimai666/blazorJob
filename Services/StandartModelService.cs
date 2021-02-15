@@ -17,7 +17,7 @@ namespace BlazorJob.Services
 
     public class StandartModelService<TEntity> : BasicModelService<TEntity> where TEntity : class, IBasicEntity
     {
-        public StandartModelService(ApplicationDbContext dbContext, IConfiguration configuration) : base(dbContext, configuration)
+        public StandartModelService(IConfiguration configuration, IServiceProvider serviceProvider) : base(configuration, serviceProvider)
         {
 
         }

@@ -10,7 +10,7 @@ namespace BlazorJob.Services
 {
     public class OptionsService : StandartModelService<Option>
     {
-        public OptionsService(ApplicationDbContext dbContext, IConfiguration configuration) : base(dbContext, configuration)
+        public OptionsService(IConfiguration configuration, IServiceProvider serviceProvider) : base(configuration, serviceProvider)
         {
         }
     }

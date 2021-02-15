@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <div class="" style="background-color: rgb(221, 242, 255); width: 500px;height: 500px;">
+
+        <!-- <img src="/node.svg" style="position: absolute; top: 50px; left:50px; width: 130px; height: 30px;" /> -->
+
+        <svg width="500" height="550" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+                <pattern id="img1" patternUnits="userSpaceOnUse" width="20" height="20">
+                  <image href="/img/bg-red.svg" x="0" y="0" width="20" height="20" />
+                </pattern>
+              </defs>
+
+            <!-- background -->
+            <!-- <rect class="red-ui-workspace-chart-background" width="5000" height="5000"></rect> -->
+            <rect 1class="red-ui-workspace-chart-background" fill="url(#img1)" width="5000" height="5000"></rect>
+
+            <!--  -->
+            <g class="red-ui-flow-node red-ui-flow-node-group" id="662d4c92.fe50d4" transform="translate(50,10)">
+
+                <!-- push btn -->
+                <!-- <g transform="translate(-25,2)" class="red-ui-flow-node-button">
+                    <rect class="red-ui-flow-node-button-background" rx="5" ry="5" width="32" height="26"></rect>
+                    <rect class="red-ui-flow-node-button-button" x="5" y="4" rx="4" ry="4" width="16" height="18"
+                        fill="#a6bbcf" fill-opacity="1"></rect>
+                </g> -->
+
+                <!-- tail -->
+                <!-- <g transform="translate(134,2)" class="red-ui-flow-node-button" style="display: inherit;">
+                    <rect class="red-ui-flow-node-button-background" rx="5" ry="5" width="32" height="26"
+                        fill-opacity="1"></rect>
+                    <rect class="red-ui-flow-node-button-button" x="11" y="4" rx="4" ry="4" width="16" height="18"
+                        fill="#87a980" fill-opacity="1"></rect>
+                </g> -->
+
+                <!-- body -->
+
+                <rect class="red-ui-flow-node " rx="5" ry="5" fill="#fdd0a2" width="120" height="30"></rect>
+
+                <!-- left icon -->
+                <g class="red-ui-flow-node-icon-group" x="0" y="0" transform="" style="pointer-events: none;">
+                    <rect x="0" y="0" class="red-ui-flow-node-icon-shade" width="30" height="30"></rect>
+                    <image xlink:href="/img/function.svg" class="red-ui-flow-node-icon" x="0" width="30" height="30"
+                        style="" y="0"></image>
+
+
+                    <path d="M 30 1 l 0 28" class="red-ui-flow-node-icon-shade-border"></path>
+                </g>
+                <!-- right icon -->
+                <!-- <g class="red-ui-flow-node-icon-group red-ui-flow-node-icon-group-right" x="0" y="0"
+                    transform="translate(110,0)" style="pointer-events: none;">
+                    <rect x="0" y="0" class="red-ui-flow-node-icon-shade" width="30" height="30"></rect>
+                    <image xlink:href="/img/function.svg" class="red-ui-flow-node-icon" x="0" width="30" height="30"
+                        y="0" style=""></image>
+                    <path d="M 0 1 l 0 28" class="red-ui-flow-node-icon-shade-border"></path>
+                </g> -->
+                <!--  -->
+                <g class="red-ui-flow-node-label node_label_italic" transform="translate(38,16)"><text
+                        class="red-ui-flow-node-label-text" x="0" y="0">puppeteer</text></g>
+                <g class="red-ui-flow-node-status-group" style="display: none;">
+                    <rect class="red-ui-flow-node-status" x="6" y="1" width="9" height="9" rx="2" ry="2"
+                        stroke-width="3">
+                    </rect><text class="red-ui-flow-node-status-label" x="20" y="10"></text>
+                </g>
+                <g class="red-ui-flow-node-changed hide" transform="translate(110, -2)">
+                    <circle r="5"></circle>
+                </g>
+                <g class="red-ui-flow-node-error hide" transform="translate(110, -2)">
+                    <path d="M -5,4 l 10,0 -5,-8 z"></path>
+                </g>
+                <g class="red-ui-flow-port-input" transform="translate(-5,10)">
+                    <rect class="red-ui-flow-port" rx="3" ry="3" width="10" height="10"></rect>
+                </g>
+                <g class="red-ui-flow-port-output" transform="translate(115,10)">
+                    <rect rx="3" ry="3" width="10" height="10" class="red-ui-flow-port"></rect>
+                </g>
+
+
+
+            </g>
+            <!--  -->
+
+            <g class="red-ui-flow-link">
+                <path class="red-ui-flow-link-background red-ui-flow-link-path"
+                    d="M 301.5 168 C 376.5 168 345.5 222 420.5 222"></path>
+                <path class="red-ui-flow-link-outline red-ui-flow-link-path"
+                    d="M 301.5 168 C 376.5 168 345.5 222 420.5 222"></path>
+                <path class="red-ui-flow-link-line red-ui-flow-link-path red-ui-flow-subflow-link"
+                    d="M 301.5 168 C 376.5 168 345.5 222 420.5 222"></path>
+            </g>
+        </svg>
+
+    </div>
+
+    <style>
+        /* UI */
+        .red-ui-workspace-chart-background {
+            fill: #fff;
+
+            background-image: url('/img/bg-red.svg');
+            background-size: 100px;
+        }
+
+        /* NODES */
+        .red-ui-flow-node {
+            stroke: #999;
+            cursor: move;
+            stroke-width: 1;
+        }
+
+        .red-ui-flow-port {
+            stroke: #999;
+            stroke-width: 1;
+            fill: #d9d9d9;
+            cursor: crosshair;
+        }
+
+        .red-ui-flow-node-error {
+            fill: #f60;
+            stroke: #911002;
+            stroke-width: 1px;
+            cursor: default;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .red-ui-flow-node-changed {
+            fill: #00bcff;
+            stroke: #1c668c;
+            cursor: default;
+            stroke-width: 1px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .red-ui-editor .hide,
+        .red-ui-editor-dialog .hide,
+        .red-ui-menu .hide,
+        .red-ui-popover .hide,
+        .red-ui-typedInput-options .hide,
+        .red-ui-icon-picker .hide {
+            display: none;
+        }
+
+
+        .red-ui-flow-node-label .red-ui-flow-node-label-text {
+            dominant-baseline: middle;
+        }
+
+        .node_label_italic,
+        .red-ui-flow-node-label-italic {
+            font-style: italic;
+        }
+
+        .red-ui-flow-node-label {
+            stroke-width: 0;
+            fill: #333;
+            font-size: 14px;
+            pointer-events: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .red-ui-flow-node-icon-shade {
+            stroke: none;
+            fill: #000;
+            fill-opacity: .05;
+        }
+
+        .red-ui-flow-node-button-background {
+            fill: #eee;
+        }
+
+        .red-ui-flow-node-button-button {
+            cursor: pointer;
+        }
+
+        g.red-ui-flow-node-selected .red-ui-flow-node,
+        g.red-ui-flow-node-selected .red-ui-flow-subflow-port {
+            stroke-width: 2;
+            stroke: #ff7f0e !important;
+        }
+
+        /* line */
+
+        .red-ui-flow-link-background {
+            stroke: #fff;
+            opacity: 0;
+            stroke-width: 20;
+            cursor: crosshair;
+            fill: none;
+        }
+
+        .red-ui-flow-link-outline {
+            stroke: #fff;
+            stroke-opacity: 0.4;
+            stroke-width: 5;
+            cursor: crosshair;
+            fill: none;
+            pointer-events: none;
+        }
+
+        .red-ui-flow-link-line {
+            stroke: #999;
+            stroke-width: 3;
+            fill: none;
+            pointer-events: none;
+        }
+
+        /*  */
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

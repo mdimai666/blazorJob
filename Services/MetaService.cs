@@ -10,7 +10,7 @@ namespace BlazorJob.Services
 {
     public class MetaService : StandartModelService<Meta>
     {
-        public MetaService(ApplicationDbContext dbContext, IConfiguration configuration) : base(dbContext, configuration)
+        public MetaService(IConfiguration configuration, IServiceProvider serviceProvider) : base(configuration,serviceProvider)
         {
         }
     }

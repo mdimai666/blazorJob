@@ -89,6 +89,7 @@ namespace BlazorJob
             services.AddScoped<PostService>();
             services.AddScoped<OptionsService>();
             services.AddScoped<MetaService>();
+            services.AddScoped<NodeRedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

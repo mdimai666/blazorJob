@@ -1,0 +1,48 @@
+﻿@using BlazorJob.Nodes
+@using BlazorJob.Data
+@using System
+@using System.Collections.Generic
+@using System.Linq
+
+<div style="@style" class="" id="red-ui-workspace-chart" tabindex="1">
+    <svg width="5000" height="5000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+        <defs>
+            <pattern id="img1" patternUnits="userSpaceOnUse" width="20" height="20">
+                <image href="/img/bg-red.svg" x="0" y="0" width="20" height="20" />
+            </pattern>
+        </defs>
+
+        <g class="red-ui-workspace-chart-event-layer" transform="scale(1)">
+            <!-- background -->
+            <!-- <rect class="red-ui-workspace-chart-background" width="5000" height="5000"></rect> -->
+            <rect 1class="red-ui-workspace-chart-background" fill="url(#img1)" width="5000" height="5000"></rect>
+
+            @* <NodeComponent node="@node"/> *@
+
+            @foreach (var node in nodes)
+            {
+                <NodeComponent node="@node" x="0" y="0" />
+            }
+
+            <g class="red-ui-flow-link">
+                <path class="red-ui-flow-link-background red-ui-flow-link-path"
+                    d="M 301.5 168 C 376.5 168 345.5 222 420.5 222"></path>
+                <path class="red-ui-flow-link-outline red-ui-flow-link-path"
+                    d="M 301.5 168 C 376.5 168 345.5 222 420.5 222"></path>
+                <path class="red-ui-flow-link-line red-ui-flow-link-path red-ui-flow-subflow-link"
+                    d="M 301.5 168 C 376.5 168 345.5 222 420.5 222"></path>
+            </g>
+        </g>
+
+    </svg>
+</div>
+
+@code {
+    [Parameter]
+    public string style { get; set; }
+
+    [Parameter]
+    public List<Node_InPalette> nodes { get; set; }
+
+}
