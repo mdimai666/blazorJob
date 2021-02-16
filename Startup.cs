@@ -36,13 +36,14 @@ namespace BlazorJob
         {
             services
                 //http://www.npgsql.org/efcore/
-                .AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), o => {
+                .AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), o =>
+                {
                     //o.UseNodaTime();
                     o.SetPostgresVersion(9, 6);
                 }
-                ));
-                //.AddControllers()
-                //.AddNewtonsoftJson()//json patch
+                ))
+                .AddControllers()
+                .AddNewtonsoftJson();//json patch
                 //.ConfigureApiBehaviorOptions(options =>
                 //{
                 //    //options.SuppressConsumesConstraintForFormFileParameters = true;

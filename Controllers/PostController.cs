@@ -163,6 +163,12 @@ namespace BlazorJob.Controllers
 
                 //https://stackoverflow.com/questions/36767759/using-net-core-web-api-with-jsonpatchdocument
                 patch.ApplyTo(post, ModelState);
+                /*
+                 * Without ths not work 
+                 * ConfigureServices
+                 * services.AddControllers()
+                    .AddNewtonsoftJson();//json patch
+                 */
 
                 await _dataContext.SaveChangesAsync();
 
@@ -172,6 +178,7 @@ namespace BlazorJob.Controllers
                 }
 
                 return new ObjectResult(post);
+
             }
 
             else
