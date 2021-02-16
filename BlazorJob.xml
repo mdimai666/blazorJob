@@ -4,6 +4,12 @@
         <name>BlazorJob</name>
     </assembly>
     <members>
+        <member name="M:BlazorJob.Controllers.PostController.List">
+            <summary>
+            XML comments is support on swagger
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BlazorJob.Models.ICascadeIterator`1">
             <summary>
             ����� ��������� ����� �������� ������ � �������� � �������� ��� ���

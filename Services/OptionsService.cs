@@ -148,6 +148,12 @@ namespace BlazorJob.Services
                         Key = "nodered",
                         RouterLink = "/nodered",
                     },
+                    new MenuItem
+                    {
+                        Title = "Api",
+                        Key = "api",
+                        RouterLink = "/api",
+                    },
                 }
             };
 
