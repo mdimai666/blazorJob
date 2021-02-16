@@ -1,4 +1,5 @@
-﻿using BlazorJob.Data;
+﻿using AntDesign;
+using BlazorJob.Data;
 using BlazorJob.Models;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Configuration;
@@ -34,7 +35,7 @@ namespace BlazorJob.Services
                     },
                     new MenuItem
                     {
-                        Title = "menu1",
+                        Title = "Main",
                         Key = "menu1",
                         RouterLink = "/404",
 
@@ -45,8 +46,18 @@ namespace BlazorJob.Services
                                 Title = "submenu1",
                                 Key = "submenu1",
                                 RouterLink = "/test",
-                                
+
                             },
+                        }
+                    },
+                    new MenuItem
+                    {
+                        Title = "Other",
+                        Key = "menu2",
+                        //RouterLink = "/404",
+
+                        Items = new List<MenuItem>
+                        {
                             new MenuItem
                             {
                                 Title = "counter",
@@ -59,12 +70,12 @@ namespace BlazorJob.Services
                                 Key = "fetchdata",
                                 RouterLink = "/fetchdata",
                             },
-                            new MenuItem
-                            {
-                                Title = "nodered",
-                                Key = "nodered",
-                                RouterLink = "/nodered",
-                            },
+                            //new MenuItem
+                            //{
+                            //    Title = "nodered",
+                            //    Key = "nodered",
+                            //    RouterLink = "/nodered",
+                            //},
                             new MenuItem
                             {
                                 Title = "items",
@@ -114,6 +125,41 @@ namespace BlazorJob.Services
                 defaultSelectedKeys = new List<string> { "index" },
             };
         }
+
+        public MenuForDraw GetTopMenu()
+        {
+            var menu = new MenuItem
+            {
+                Title = "Top menu",
+                Icon = "",
+                Key = "topmenu",
+                Items = new List<MenuItem>
+                {
+                    new MenuItem
+                    {
+                        Title = "Home",
+                        Key = "home",
+                        RouterLink = "/",
+                        RouterMatch = NavLinkMatch.All
+                    },
+                    new MenuItem
+                    {
+                        Title = "NodeRed",
+                        Key = "nodered",
+                        RouterLink = "/nodered",
+                    },
+                }
+            };
+
+            return new MenuForDraw
+            {
+                menu = menu,
+                //deafultOpenKeys = new List<string> { "menu1" },
+                defaultSelectedKeys = new List<string> { "home" },
+                menuTheme = MenuTheme.Dark,
+                menuMode = MenuMode.Horizontal,
+            };
+        }
     }
 
     public class MenuItem
@@ -130,10 +176,13 @@ namespace BlazorJob.Services
 
     public class MenuForDraw
     {
-        public MenuItem menu{ get; set; }
+        public MenuItem menu { get; set; }
 
-        public List<string> defaultSelectedKeys { get; set; }
-        public List<string> deafultOpenKeys { get; set; }
+        public MenuTheme menuTheme { get; set; } = MenuTheme.Light;
+        public MenuMode menuMode { get; set; } = MenuMode.Inline;
+
+        public List<string> defaultSelectedKeys { get; set; } = new List<string>();
+        public List<string> deafultOpenKeys { get; set; } = new List<string>();
 
     }
 }

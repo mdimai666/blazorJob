@@ -1,0 +1,70 @@
+﻿@inject NavigationManager navigationManager
+
+
+    @*Mode="MenuMode.Inline"*@
+<Menu 
+    Mode="Menu.menuMode"
+    Theme="Menu.menuTheme"
+    DefaultSelectedKeys=Menu.defaultSelectedKeys
+    DefaultOpenKeys=Menu.deafultOpenKeys
+    style="1height: 100%; border-right: 0;">
+@{
+
+    foreach(var menu in Menu.menu.Items){
+
+        
+
+        @if(menu.Items == null){
+
+            <AntDesign.MenuItem Key="@menu.Key" 
+                RouterLink="@menu.RouterLink" RouterMatch="@menu.RouterMatch">
+                @if(string.IsNullOrEmpty(menu.Icon) == false){
+                    <Icon Type="@menu.Icon" Theme="outline" />
+                }
+                @menu.Title
+            </AntDesign.MenuItem>
+
+        } else {
+
+            RenderFragment sub1Title =
+            @<span>
+                @if(string.IsNullOrEmpty(menu.Icon) == false){
+                    <Icon Type="@menu.Icon" Theme="outline" />
+                }
+                @menu.Title
+            </span>;
+
+            <SubMenu Key="@menu.Key" TitleTemplate="sub1Title" OnTitleClick="@(e=>NavigateTo(menu.RouterLink))">
+
+                @if(menu.Items != null){
+                    foreach(var subMenu in menu.Items){
+                        
+                        <AntDesign.MenuItem Key="@subMenu.Key" 
+                            RouterLink="@subMenu.RouterLink" RouterMatch="@subMenu.RouterMatch">
+                            @if(string.IsNullOrEmpty(subMenu.Icon) == false){
+                                <Icon Type="@subMenu.Icon" Theme="outline" />
+                            }
+                            @subMenu.Title
+                        </AntDesign.MenuItem>
+
+                    }
+                }
+            </SubMenu>
+        }
+    }
+    
+}
+
+</Menu>
+
+@code {
+    [Parameter]
+    public MenuForDraw Menu { get; set; }
+
+    public void NavigateTo(string link){
+        if(string.IsNullOrEmpty(link) == false){
+        navigationManager.NavigateTo(link);
+        }
+    }
+
+ }

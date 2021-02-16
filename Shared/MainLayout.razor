@@ -1,16 +1,17 @@
 ﻿@inherits LayoutComponentBase
+@inject OptionsService optionsService
 
 <Layout id="main-layout1" style="min-height:100vh;">
     <Header Class="header">
         <div class="logo" />
         <div class="d-flex justify-content-between">
         
-            <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"1"})  >
+            @*<Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"1"})  >
 
                 <MenuItem Key="1">Index</MenuItem>
                 <MenuItem Key="2">nav 2</MenuItem>
             
-                @*<div class"d-flex justify-content-between">
+                <div class"d-flex justify-content-between">
                     <div>
                         <MenuItem Key="1">Index</MenuItem>
                         <MenuItem Key="2">nav 2</MenuItem>
@@ -20,15 +21,20 @@
 
                     <NavLink href="https://antblazor.com/en-US/components/table">AntBlazor</NavLink>
                     </div>
-                </div>*@
+                </div>
 
             
-            </Menu>
+            </Menu>*@
+
+            <DrawMenu Menu="TopMenu"></DrawMenu>
 
             <div class="gx-2">
                 <NavLink class="text-white" href="https://antblazor.com/en-US/components/table" target="_blank">AntBlazor</NavLink>
                 <span class="text-secondary">|</span>
                 <NavLink class="text-white" href="https://www.w3schools.com/bootstrap4/bootstrap_flex.asp" target="_blank">BS4</NavLink>
+                <span class="ml-2">&nbsp;</span>
+
+                <LoginDisplay />
             </div>
         </div>
     </Header>
@@ -48,6 +54,16 @@
         </Layout>
     </Layout>
 </Layout>
+
+@code {
+    BlazorJob.Services.MenuForDraw TopMenu { get; set; }
+
+    protected override void OnInitialized()
+    {
+        TopMenu = optionsService.GetTopMenu();
+        
+    }
+}
 
 <style>
     #main-layout1 .logo {

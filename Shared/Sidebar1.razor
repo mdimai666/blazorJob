@@ -1,57 +1,14 @@
 ﻿@inject OptionsService optionsService
 @inject NavigationManager navigationManager
 
-
-
-<Menu Mode="MenuMode.Inline"
-    DefaultSelectedKeys=Menu.defaultSelectedKeys
-    DefaultOpenKeys=Menu.deafultOpenKeys
-    Style="height: 100%; border-right: 0;">
-@{
-
-    foreach(var menu in Menu.menu.Items){
-
-        
-
-        @if(menu.Items == null){
-
-            <AntDesign.MenuItem Key="@menu.Key" 
-                RouterLink="@menu.RouterLink" RouterMatch="@menu.RouterMatch">
-                @if(string.IsNullOrEmpty(menu.Icon) == false){
-                    <Icon Type="@menu.Icon" Theme="outline" />
-                }
-                @menu.Title
-            </AntDesign.MenuItem>
-
-        } else {
-
-            RenderFragment sub1Title =
-            @<span>
-                @if(string.IsNullOrEmpty(menu.Icon) == false){
-                    <Icon Type="@menu.Icon" Theme="outline" />
-                }
-                @menu.Title
-            </span>;
-
-            <SubMenu Key="@menu.Key" TitleTemplate="sub1Title" OnTitleClick="@(e=>NavigateTo(menu.RouterLink))">
-
-                @if(menu.Items != null){
-                    foreach(var subMenu in menu.Items){
-                        
-                        <AntDesign.MenuItem Key="@subMenu.Key" 
-                            RouterLink="@subMenu.RouterLink" RouterMatch="@subMenu.RouterMatch">
-                            @subMenu.Title
-                        </AntDesign.MenuItem>
-
-                    }
-                }
-            </SubMenu>
-        }
-    }
-    
-}
-
-</Menu>
+<div class="bg-white text-black d-flex flex-column justify-content-between" style="height: 100%;">
+    <div>
+        <DrawMenu Menu=Menu />
+    </div>
+    <div class="text-secondary px-2 py-1">
+        ver: 0
+    </div>
+</div>
 
 @code {
     BlazorJob.Services.MenuForDraw Menu { get; set; }
@@ -63,9 +20,5 @@
         
     }
 
-    public void NavigateTo(string link){
-        if(string.IsNullOrEmpty(link) == false){
-            navigationManager.NavigateTo(link);
-        }
-    }
+    
 }
