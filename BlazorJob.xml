@@ -21,5 +21,8 @@
             Оно структурируется через term_taxonomy
             </summary>
         </member>
+        <member name="M:BlazorJob.Pages.TestPage.OnInitialized">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

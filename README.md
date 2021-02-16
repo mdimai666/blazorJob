@@ -14,3 +14,7 @@ dotnet ef migrations add 'added posts'
 //update db
 dotnet ef database update
 ```
+
+
+# For inspiration
+https://github.com/thangchung/awesome-dotnet-core#sample-projects

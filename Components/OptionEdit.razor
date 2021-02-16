@@ -1,4 +1,5 @@
 ﻿@using BlazorJob.Data
+@using Microsoft.AspNetCore.Components.Forms
 
 @inject OptionsService optionsService;
 @inject NavigationManager navigationManager
@@ -24,27 +25,27 @@
 
         <div class="form-group">
             <label for="f-author">Author</label>
-            <InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />
+            <Microsoft.AspNetCore.Components.Forms.InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="f-status">Status</label>
-            <InputSelect id="f-status" @bind-Value="post.Status" class="form-control">
+            <Microsoft.AspNetCore.Components.Forms.InputSelect id="f-status" @bind-Value="post.Status" class="form-control">
                 @foreach (var item in Post.StatusList)
                     {
                     <option value="@item">@item</option>
                     }
-            </InputSelect>
+            </Microsoft.AspNetCore.Components.Forms.InputSelect>
         </div>
 
         <div class="form-group">
             <label for="f-type">Type</label>
-            <InputSelect id="f-type" @bind-Value="post.Type" class="form-control">
+            <Microsoft.AspNetCore.Components.Forms.InputSelect id="f-type" @bind-Value="post.Type" class="form-control">
                 @foreach (var item in Post.TypeList)
                     {
                     <option value="@item">@item</option>
                     }
-            </InputSelect>
+            </Microsoft.AspNetCore.Components.Forms.InputSelect>
         </div>
 
         <div class="form-group">

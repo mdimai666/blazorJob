@@ -1,16 +1,64 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="sidebar">
-    <NavMenu />
-</div>
+<Layout id="main-layout1" style="min-height:100vh;">
+    <Header Class="header">
+        <div class="logo" />
+        <div class="d-flex justify-content-between">
+        
+            <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"1"})  >
 
-<div class="main">
-    <div class="top-row px-4 auth">
-        <LoginDisplay />
-        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-    </div>
+                <MenuItem Key="1">Index</MenuItem>
+                <MenuItem Key="2">nav 2</MenuItem>
+            
+                @*<div class"d-flex justify-content-between">
+                    <div>
+                        <MenuItem Key="1">Index</MenuItem>
+                        <MenuItem Key="2">nav 2</MenuItem>
+                        <MenuItem Key="3">nav 3</MenuItem>
+                    </div>
+                    <div>
 
-    <div class="content px-4">
-        @Body
-    </div>
-</div>
+                    <NavLink href="https://antblazor.com/en-US/components/table">AntBlazor</NavLink>
+                    </div>
+                </div>*@
+
+            
+            </Menu>
+
+            <div class="gx-2">
+                <NavLink class="text-white" href="https://antblazor.com/en-US/components/table" target="_blank">AntBlazor</NavLink>
+                <span class="text-secondary">|</span>
+                <NavLink class="text-white" href="https://www.w3schools.com/bootstrap4/bootstrap_flex.asp" target="_blank">BS4</NavLink>
+            </div>
+        </div>
+    </Header>
+    <Layout>
+        <Sider Width="200" Class="site-layout-background">
+            <Sidebar1/>
+        </Sider>
+        <Layout Style=" padding: 0 24px 24px;">
+            <Breadcrumb Style="margin: 16px 0;">
+                <BreadcrumbItem>Home</BreadcrumbItem>
+                <BreadcrumbItem>List</BreadcrumbItem>
+                <BreadcrumbItem>App</BreadcrumbItem>
+            </Breadcrumb>
+            <Content Class="site-layout-background" Style=" padding: 24px; margin: 0; min-height: 280px;">
+                @Body
+            </Content>
+        </Layout>
+    </Layout>
+</Layout>
+
+<style>
+    #main-layout1 .logo {
+        width: 120px;
+        height: 31px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 16px 30px 16px 0;
+        float: left;
+    }
+
+    .site-layout-background {
+        background: #fff;
+    }
+</style>

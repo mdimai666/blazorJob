@@ -59,6 +59,9 @@ namespace BlazorJob
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddAntDesign();
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
 

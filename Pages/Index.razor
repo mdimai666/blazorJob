@@ -1,10 +1,17 @@
 ﻿@page "/"
 @inject PostService postService
 
+@using AntDesign
+
 <h1>Index</h1>
 
 Welcome to your new app
 <div class="spacer-2"></div>
+
+<Button Type="primary" Danger>
+    Primary
+</Button>
+
 
 
 @if(posts != null){

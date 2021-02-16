@@ -1,6 +1,7 @@
 ﻿@using BlazorJob.Data
+@using Microsoft.AspNetCore.Components.Forms
 
-@inject MetaService metaService
+@inject PostService postService
 @inject NavigationManager navigationManager
 
 
@@ -11,46 +12,45 @@
         <ValidationSummary />
 
         <div class="form-group">
-            <label for="f-title">Post Id:</label>
-            <InputNumber id="f-title" @bind-Value="post.PostId" class="form-control" />
+            <label for="f-title">Title:</label>
+            <Microsoft.AspNetCore.Components.Forms.InputText id="f-title" @bind-Value="post.Title" class="form-control" />
 
         </div>
 
         <div class="form-group">
-            <label for="f-title">Key:</label>
-            <InputText id="f-title" @bind-Value="post.Key" class="form-control" />
-
-        </div>
-
-        <div class="form-group">
-            <label for="f-content">Val:</label>
-            <InputTextArea id="f-content" @bind-Value="post.Value" class="form-control" />
+            <label for="f-content">Content:</label>
+            <Microsoft.AspNetCore.Components.Forms.InputTextArea id="f-content" @bind-Value="post.Content" class="form-control" />
 
         </div>
 
         <div class="form-group">
             <label for="f-author">Author</label>
-            <InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />
+            <Microsoft.AspNetCore.Components.Forms.InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="f-parent">Parent</label>
+            <Microsoft.AspNetCore.Components.Forms.InputNumber id="f-parent" @bind-Value="post.Parent" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="f-status">Status</label>
-            <InputSelect id="f-status" @bind-Value="post.Status" class="form-control">
+            <Microsoft.AspNetCore.Components.Forms.InputSelect id="f-status" @bind-Value="post.Status" class="form-control">
                 @foreach (var item in Post.StatusList)
                     {
                     <option value="@item">@item</option>
                     }
-            </InputSelect>
+            </Microsoft.AspNetCore.Components.Forms.InputSelect>
         </div>
 
         <div class="form-group">
             <label for="f-type">Type</label>
-            <InputSelect id="f-type" @bind-Value="post.Type" class="form-control">
+            <Microsoft.AspNetCore.Components.Forms.InputSelect id="f-type" @bind-Value="post.Type" class="form-control">
                 @foreach (var item in Post.TypeList)
                     {
                     <option value="@item">@item</option>
                     }
-            </InputSelect>
+            </Microsoft.AspNetCore.Components.Forms.InputSelect>
         </div>
 
         <div class="form-group">
@@ -65,14 +65,14 @@
 @code {
 
 
-    private Meta post = new Meta();
+    private Post post = new Post();
     private bool _formInvalid = true;
     private EditContext _editContext;
     
 
     async protected override Task OnInitializedAsync()
     {
-        if (ID != null) post = await metaService.Get(ID ?? -1);
+        if (ID != null) post = await postService.Get(ID ?? -1);
 
         _editContext = new EditContext(post);
 
@@ -85,20 +85,20 @@
 
     async private void HandleValidSubmit()
     {
-        Meta addedPost;
+        Post addedPost;
 
         bool isUpdate = ID != null;
 
         if (isUpdate)
-            addedPost = await metaService.Update(post.Id, post);
+            addedPost = await postService.Update(post.Id, post);
         else
-            addedPost = await metaService.Add(post);
+            addedPost = await postService.Add(post);
 
         if (isUpdate)
-            Console.WriteLine($"updated ${post.Key}");
+            Console.WriteLine($"updated ${post.Title}");
         else
-            Console.WriteLine($"added ${post.Key}");
-        navigationManager.NavigateTo("/meta");
+            Console.WriteLine($"added ${post.Title}");
+        navigationManager.NavigateTo("/items");
     }
 
     async private void DeletePost()
@@ -109,9 +109,9 @@
 
         if (!isUpdate) return;
 
-        bool result = await metaService.Delete((int)ID);
+        bool result = await postService.Delete((int)ID);
 
-        navigationManager.NavigateTo("/meta");
+        navigationManager.NavigateTo("/");
 
         
     }
