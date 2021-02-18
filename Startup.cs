@@ -34,6 +34,17 @@ namespace BlazorJob
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //services.AddCors(options => not check
+            //{
+            //    options.AddDefaultPolicy(
+            //        builder =>
+            //        {
+            //            builder.WithOrigins("http://localhost",
+            //                                "https://localhost");
+            //        });
+            //});
+
             services
                 //http://www.npgsql.org/efcore/
                 .AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), o =>
@@ -130,6 +141,8 @@ namespace BlazorJob
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            //app.UseCors();//not check
 
             app.UseAuthentication();
             app.UseAuthorization();

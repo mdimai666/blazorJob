@@ -26,7 +26,9 @@ namespace BlazorJob.Services
     //    Task<bool> Delete(long id);
     //}
 
-    public class BasicModelService<TEntity> where TEntity : class, IBasicEntity
+    //IBasicModelService<TEntity>
+
+    public class BasicModelService<TEntity> : IBasicModelService<TEntity> where TEntity : class, IBasicEntity
     {
         protected const int DEFAULT_LIMIT = 20;
 
@@ -43,6 +45,7 @@ namespace BlazorJob.Services
         {
             //ef = dbContext;
             _configuration = configuration;
+
 
             _connectionString = _configuration.GetConnectionString("DefaultConnection");
         }
@@ -151,7 +154,7 @@ namespace BlazorJob.Services
             return items;
         }
 
-        async public virtual Task<List<TEntity>> List(Expression<Func<TEntity, bool>> predicate, int offset = 0, int limit = DEFAULT_LIMIT)
+        async public virtual Task<List<TEntity>> List(Expression<Func<TEntity, bool>> predicate = null, int offset = 0, int limit = DEFAULT_LIMIT)
         {
 
 #if FALSE
@@ -161,7 +164,8 @@ namespace BlazorJob.Services
 
             using (var context = GetEFContext())
             {
-                items = await context.Set<TEntity>().Where(predicate).Skip(offset).Take(limit).OrderByDescending(s => s.Id).ToListAsync();
+                var query = predicate != null ? context.Set<TEntity>().Where(predicate) : context.Set<TEntity>();
+                items = await query.Skip(offset).Take(limit).OrderByDescending(s => s.Id).ToListAsync();
             }
 
             return items;
@@ -216,7 +220,7 @@ namespace BlazorJob.Services
                     EntityEntry <TEntity> e = context.Set<TEntity>().Update(_item);
                     int state = await context.SaveChangesAsync();
                     item = e.Entity;
-                }
+                } 
             }
 
             return item;

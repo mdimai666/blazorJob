@@ -15,7 +15,8 @@ using Microsoft.Extensions.Configuration;
 namespace BlazorJob.Services
 {
 
-    public class StandartModelService<TEntity> : BasicModelService<TEntity> where TEntity : class, IBasicEntity
+    //public class BasicModelService<TEntity> where TEntity : class, IBasicEntity, IBasicModelService<TEntity>
+    public class StandartModelService<TEntity>: BasicModelService<TEntity> where TEntity : class, IBasicEntity
     {
         public StandartModelService(IConfiguration configuration, IServiceProvider serviceProvider) : base(configuration, serviceProvider)
         {
