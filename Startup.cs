@@ -26,6 +26,7 @@ namespace BlazorJob
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -34,6 +35,9 @@ namespace BlazorJob
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //------------------------------------------
+            // Core
 
             //services.AddCors(options => not check
             //{
@@ -77,6 +81,9 @@ namespace BlazorJob
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+            //------------------------------------------
+            // Nuget
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services
                 .AddSwaggerGen(c =>
@@ -93,6 +100,20 @@ namespace BlazorJob
                     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                     c.IncludeXmlComments(xmlPath);
                 });
+
+            //https://github.com/twenzel/WebOptimizer.Dotless
+            //https://github.com/ligershark/WebOptimizer#install-and-setup
+            services.AddWebOptimizer(pipeline =>
+                {
+                    //pipeline.CompileLessFiles();
+                    pipeline.AddLessBundle("/css/style.css", "/css/style.less");//.UseFileProvider(;
+                    //pipeline.CompileLessFiles();
+                    //pipeline.CompileLessFiles("css/fix.less");
+                });
+
+
+            //------------------------------------------
+            // Data
 
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
@@ -137,6 +158,8 @@ namespace BlazorJob
                 //c.RoutePrefix = string.Empty;
                 c.RoutePrefix = "api";
             });
+
+            app.UseWebOptimizer();//less files compile
 
             app.UseStaticFiles();
 
