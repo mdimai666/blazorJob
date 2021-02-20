@@ -6,7 +6,14 @@
 
 @inject PostService postService
 
-<h1>ITEMS</h1>
+<div class="d-flex justify-content-between ">
+        <div class="d-flex align-items-center">
+            <h1>Posts</h1>
+        </div>
+        <div class="d-flex align-items-center">
+            <a href="/edit" class="btn btn-primary text-white">Add new</a>
+        </div>
+</div>
 
 
 <PostList />

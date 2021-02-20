@@ -6,7 +6,11 @@
 @using System.Collections.Generic
 @using System.Linq
 
-<h1>Add option</h1>
+@if(isNew){
+    <h1>Add option</h1>
+} else{
+    <h1>Edit option</h1>
+}
 
 
 <OptionEdit id="@Id" />
@@ -14,4 +18,6 @@
 @code {
     [Parameter]
     public long? Id { get; set; }
+
+    bool isNew => Id == null;
 }

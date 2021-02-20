@@ -58,18 +58,18 @@ namespace BlazorJob.Services
 
                         Items = new List<MenuItem>
                         {
-                            new MenuItem
-                            {
-                                Title = "counter",
-                                Key = "counter",
-                                RouterLink = "/counter",
-                            },
-                            new MenuItem
-                            {
-                                Title = "fetchdata",
-                                Key = "fetchdata",
-                                RouterLink = "/fetchdata",
-                            },
+                            //new MenuItem
+                            //{
+                            //    Title = "counter",
+                            //    Key = "counter",
+                            //    RouterLink = "/counter",
+                            //},
+                            //new MenuItem
+                            //{
+                            //    Title = "fetchdata",
+                            //    Key = "fetchdata",
+                            //    RouterLink = "/fetchdata",
+                            //},
                             //new MenuItem
                             //{
                             //    Title = "nodered",
@@ -82,37 +82,37 @@ namespace BlazorJob.Services
                                 Key = "items",
                                 RouterLink = "/items",
                             },
-                            new MenuItem
-                            {
-                                Title = "edit",
-                                Key = "edit",
-                                RouterLink = "/edit",
-                            },
+                            //new MenuItem
+                            //{
+                            //    Title = "edit",
+                            //    Key = "edit",
+                            //    RouterLink = "/edit",
+                            //},
 
                             new MenuItem
                             {
-                                Title = "options",
+                                Title = "Options",
                                 Key = "options",
                                 RouterLink = "/options",
                             },
-                            new MenuItem
-                            {
-                                Title = "editoption",
-                                Key = "editoption",
-                                RouterLink = "/editoption",
-                            },
+                            //new MenuItem
+                            //{
+                            //    Title = "editoption",
+                            //    Key = "editoption",
+                            //    RouterLink = "/editoption",
+                            //},
                             new MenuItem
                             {
                                 Title = "meta",
                                 Key = "meta",
                                 RouterLink = "/meta",
                             },
-                            new MenuItem
-                            {
-                                Title = "editmeta",
-                                Key = "editmeta",
-                                RouterLink = "/editmeta",
-                            },
+                            //new MenuItem
+                            //{
+                            //    Title = "editmeta",
+                            //    Key = "editmeta",
+                            //    RouterLink = "/editmeta",
+                            //},
                         }
                     }
                 }
