@@ -50,37 +50,37 @@ app {
 
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-}
 
-    .sidebar .top-row {
-        background-color: rgba(0,0,0,0.4);
+
+    .top-row {
+        background-color: rgba(0, 0, 0, 0.4);
     }
 
-    .sidebar .navbar-brand {
+    .navbar-brand {
         font-size: 1.1rem;
     }
 
-    .sidebar .oi {
+    .oi {
         width: 2rem;
         font-size: 1.1rem;
         vertical-align: text-top;
         top: -2px;
     }
 
-    .sidebar .nav-item {
+    .nav-item {
         font-size: 0.9rem;
         padding-bottom: 0.5rem;
-    }
 
-        .sidebar .nav-item:first-of-type {
+
+        &:first-of-type {
             padding-top: 1rem;
         }
 
-        .sidebar .nav-item:last-of-type {
+        &:last-of-type {
             padding-bottom: 1rem;
         }
 
-        .sidebar .nav-item a {
+        a {
             color: #d7d7d7;
             border-radius: 4px;
             height: 3rem;
@@ -89,15 +89,17 @@ app {
             line-height: 3rem;
         }
 
-            .sidebar .nav-item a.active {
-                background-color: rgba(255,255,255,0.25);
-                color: white;
-            }
+        a.active {
+            background-color: rgba(255, 255, 255, 0.25);
+            color: white;
+        }
 
-            .sidebar .nav-item a:hover {
-                background-color: rgba(255,255,255,0.1);
-                color: white;
-            }
+        a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+    }
+}
 
 .content {
     padding-top: 1.1rem;
@@ -191,12 +193,14 @@ app {
 #components-reconnect-modal {
     background-color: rgb(107, 141, 171) !important;
     display: flex !important;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
 #components-reconnect-modal > h5 {
     color: white !important;
+
 }
 
 a {

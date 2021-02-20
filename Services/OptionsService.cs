@@ -154,6 +154,12 @@ namespace BlazorJob.Services
                         Key = "api",
                         RouterLink = "/api",
                     },
+                    new MenuItem
+                    {
+                        Title = "Admin",
+                        Key = "admin",
+                        RouterLink = "/Admin",
+                    },
                 }
             };
 

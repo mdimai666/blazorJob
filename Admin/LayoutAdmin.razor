@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+
+@*<div class="sidebar">
+    <NavMenu />
+</div>*@
+
+<div class="main">
+    <div class="top-row px-4 auth d-flex justify-content-between">
+        <div class="d-flex logo align-items-center">
+            <a href="/" >Admin logo</a>
+        </div>
+        <div class="d-flex align-items-center">
+            <LoginDisplay />
+        </div>
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>

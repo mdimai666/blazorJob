@@ -174,7 +174,10 @@ namespace BlazorJob
             {
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
+                //endpoints.MapFallbackToAreaPage("/Admin/Pages/Index", "Admin");
+                //endpoints.MapAreaControllerRoute("admin_route", "Admin", "Admin/{controller}/{action}/{id?}");
                 endpoints.MapFallbackToPage("/_Host");
+
             });
         }
     }

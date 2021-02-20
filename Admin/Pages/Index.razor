@@ -1,0 +1,25 @@
+﻿@page "/admin"
+
+@namespace BlazorJob.Admin.Pages
+@inject PostService postService;
+
+
+<h3>Admin Index21</h3>
+
+<p>count: @count</p>
+
+<NavLink href="/admin/Settings">
+    Settings
+</NavLink>
+
+
+
+@code {
+    int count = 0; 
+
+    protected async override Task OnInitializedAsync(){
+        var posts = await postService.List();
+        count = posts.Count();
+
+    }
+}
