@@ -25,12 +25,12 @@
 
         <div class="form-group">
             <label for="f-author">Author</label>
-            <Microsoft.AspNetCore.Components.Forms.InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />
+            @*<Microsoft.AspNetCore.Components.Forms.InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />*@
         </div>
 
         <div class="form-group">
             <label for="f-parent">Parent</label>
-            <Microsoft.AspNetCore.Components.Forms.InputNumber id="f-parent" @bind-Value="post.Parent" class="form-control" />
+            @*<Microsoft.AspNetCore.Components.Forms.InputNumber id="f-parent" @bind-Value="post.Parent" class="form-control" />*@
         </div>
 
         <div class="form-group">
@@ -72,7 +72,7 @@
 
     async protected override Task OnInitializedAsync()
     {
-        if (ID != null) post = await postService.Get(ID ?? -1);
+        if (ID != null) post = await postService.Get(ID ?? new Guid());
 
         _editContext = new EditContext(post);
 
@@ -109,7 +109,7 @@
 
         if (!isUpdate) return;
 
-        bool result = await postService.Delete((int)ID);
+        bool result = await postService.Delete(ID.Value);
 
         navigationManager.NavigateTo("/");
 
@@ -119,5 +119,5 @@
     
 
     [Parameter]
-    public long? ID { get; set; } = null;
+    public Guid? ID { get; set; } = null;
 }

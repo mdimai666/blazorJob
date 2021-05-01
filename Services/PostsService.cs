@@ -39,6 +39,7 @@ namespace BlazorJob.Services
     }
 #endif
 
+#if Id_not_Guid
     public class PostServiceOld
     {
         ApplicationDbContext ef;
@@ -110,7 +111,8 @@ namespace BlazorJob.Services
         {
             // ef.Model.
         }
-    }
+    } 
+#endif
 
 
 }

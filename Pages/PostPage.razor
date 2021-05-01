@@ -1,4 +1,4 @@
-﻿@page "/post/{Id:long}"
+﻿@page "/post/{Id:guid}"
 @inject PostService postService
 
 
@@ -18,10 +18,13 @@
 @code {
     async protected override Task OnInitializedAsync()
     {
-        post = await postService.Get(Id ?? -1);
+        if(Id != null){
+            post = await postService.Get(Id.Value);
+        }
+
     }
 
     [Parameter]
-    public long? Id { get; set; }
+    public Guid? Id { get; set; }
     public Post post {get;set;} = null;
 }

@@ -16,8 +16,8 @@ namespace BlazorJob.Data
             entity.ToTable("meta");
 
             entity.Property(e => e.Id)
-                .HasColumnName("id")
-                .UseSerialColumn();
+                .HasColumnName("id");
+                //.UseSerialColumn();
 
 
             entity.Property(e => e.Date)

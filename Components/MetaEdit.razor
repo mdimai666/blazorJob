@@ -13,7 +13,7 @@
 
         <div class="form-group">
             <label for="f-title">Post Id:</label>
-            <Microsoft.AspNetCore.Components.Forms.InputNumber id="f-title" @bind-Value="post.PostId" class="form-control" />
+            @*<Microsoft.AspNetCore.Components.Forms.InputNumber id="f-title" @bind-Value="post.PostId" class="form-control" />*@
 
         </div>
 
@@ -31,7 +31,7 @@
 
         <div class="form-group">
             <label for="f-author">Author</label>
-            <Microsoft.AspNetCore.Components.Forms.InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />
+            @*<Microsoft.AspNetCore.Components.Forms.InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />*@
         </div>
 
         <div class="form-group">
@@ -64,8 +64,6 @@
 
 
 @code {
-
-
     private Meta post = new Meta();
     private bool _formInvalid = true;
     private EditContext _editContext;
@@ -73,7 +71,7 @@
 
     async protected override Task OnInitializedAsync()
     {
-        if (ID != null) post = await metaService.Get(ID ?? -1);
+        if (ID != null) post = await metaService.Get(ID ?? new Guid());
 
         _editContext = new EditContext(post);
 
@@ -110,9 +108,12 @@
 
         if (!isUpdate) return;
 
-        bool result = await metaService.Delete((int)ID);
+        if (ID != null)
+        {
 
-        navigationManager.NavigateTo("/meta");
+            bool result = await metaService.Delete(ID.Value);
+            navigationManager.NavigateTo("/meta");
+        }
 
         
     }
@@ -120,5 +121,5 @@
     
 
     [Parameter]
-    public long? ID { get; set; } = null;
+    public Guid? ID { get; set; } = null;
 }

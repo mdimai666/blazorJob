@@ -11,62 +11,115 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BlazorJob.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200528180038_added options table")]
-    partial class addedoptionstable
+    [Migration("20210220234720_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "3.1.4")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn);
 
-            modelBuilder.Entity("BlazorJob.Models.OptionEntity", b =>
+            modelBuilder.Entity("BlazorJob.Models.Meta", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn);
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
-                    b.Property<long>("Author")
-                        .HasColumnName("author")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("Author")
+                        .HasColumnType("uuid")
+                        .HasColumnName("author");
 
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("created_date")
                         .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_date")
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Key")
                         .IsRequired()
-                        .HasColumnName("key")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("key");
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("updated_date")
                         .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_date")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("post_id");
+
+                    b.Property<string>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("")
+                        .HasColumnName("status");
+
+                    b.Property<string>("Type")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("")
+                        .HasColumnName("type");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("value");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("meta");
+                });
+
+            modelBuilder.Entity("BlazorJob.Models.Option", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("Author")
+                        .HasColumnType("uuid")
+                        .HasColumnName("author");
+
+                    b.Property<DateTime>("Date")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_date")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("key");
+
+                    b.Property<DateTime>("Modified")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_date")
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Status")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("status")
                         .HasColumnType("text")
-                        .HasDefaultValue("");
+                        .HasDefaultValue("")
+                        .HasColumnName("status");
 
                     b.Property<string>("Type")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("type")
                         .HasColumnType("text")
-                        .HasDefaultValue("");
+                        .HasDefaultValue("")
+                        .HasColumnName("type");
 
                     b.Property<string>("Value")
                         .IsRequired()
-                        .HasColumnName("value")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("value");
 
                     b.HasKey("Id");
 
@@ -75,82 +128,75 @@ namespace BlazorJob.Data.Migrations
 
             modelBuilder.Entity("BlazorJob.Models.Post", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn);
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
-                    b.Property<long>("Author")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("author")
-                        .HasColumnType("bigint")
-                        .HasDefaultValue(0L);
+                    b.Property<Guid>("Author")
+                        .HasColumnType("uuid")
+                        .HasColumnName("author");
 
-                    b.Property<long>("Category")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("category")
-                        .HasColumnType("bigint")
-                        .HasDefaultValue(0L);
+                    b.Property<Guid>("Category")
+                        .HasColumnType("uuid")
+                        .HasColumnName("category");
 
                     b.Property<string>("Content")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("content")
                         .HasColumnType("text")
-                        .HasDefaultValue("");
+                        .HasDefaultValue("")
+                        .HasColumnName("content");
 
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("created_date")
                         .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_date")
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Excerpt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("excerpt")
                         .HasColumnType("text")
-                        .HasDefaultValue("");
+                        .HasDefaultValue("")
+                        .HasColumnName("excerpt");
 
                     b.Property<Guid>("Guid")
-                        .HasColumnName("guid")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("guid");
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("updated_date")
                         .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_date")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<long>("Parent")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("parent")
-                        .HasColumnType("bigint")
-                        .HasDefaultValue(0L);
+                    b.Property<Guid>("Parent")
+                        .HasColumnType("uuid")
+                        .HasColumnName("parent");
 
                     b.Property<string>("Slug")
-                        .HasColumnName("slug")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("slug");
 
                     b.Property<string>("Status")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("status")
                         .HasColumnType("text")
-                        .HasDefaultValue("draft");
+                        .HasDefaultValue("draft")
+                        .HasColumnName("status");
 
                     b.Property<List<string>>("Tags")
-                        .HasColumnName("tags")
-                        .HasColumnType("text[]");
+                        .HasColumnType("text[]")
+                        .HasColumnName("tags");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnName("title")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("title");
 
                     b.Property<string>("Type")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("type")
                         .HasColumnType("text")
-                        .HasDefaultValue("post");
+                        .HasDefaultValue("post")
+                        .HasColumnName("type");
 
                     b.Property<string>("Value")
                         .HasColumnType("text");
@@ -170,18 +216,18 @@ namespace BlazorJob.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -223,8 +269,8 @@ namespace BlazorJob.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
@@ -236,12 +282,12 @@ namespace BlazorJob.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -259,17 +305,17 @@ namespace BlazorJob.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -301,12 +347,12 @@ namespace BlazorJob.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("character varying(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("character varying(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("text");
@@ -343,12 +389,12 @@ namespace BlazorJob.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("character varying(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("character varying(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("text");

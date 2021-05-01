@@ -92,7 +92,7 @@ namespace BlazorJob.Services
 
         }
 
-        async public virtual Task<bool> Delete(long id)
+        async public virtual Task<bool> Delete(Guid id)
         {
 #if FALSE
             TEntity item = await ef.Set<TEntity>().FirstOrDefaultAsync(s => s.Id == id);
@@ -172,7 +172,7 @@ namespace BlazorJob.Services
 
         }
 
-        async public virtual Task<TEntity> Get(long id)
+        async public virtual Task<TEntity> Get(Guid id)
         {
 
 #if FALSE
@@ -186,7 +186,7 @@ namespace BlazorJob.Services
             return item;
         }
 
-        async public virtual Task<TEntity> Update(long id, TEntity entity)
+        async public virtual Task<TEntity> Update(Guid id, TEntity entity)
         {
             //ef.Entry(entity).State = EntityState.Modified;
 

@@ -54,7 +54,7 @@ namespace BlazorJob.Controllers
                 //    (m_spam == null || m_spam == s.m_spam) &&
                 //    (dt_actual == false || s.dt_insert > dt_lastActual)
                 //)
-                .Where(s => s.Id > 0)
+                //.Where(s => s.Id > 0)
                 .AsQueryable(); // Add Where Filters Here.
 
 
@@ -82,7 +82,7 @@ namespace BlazorJob.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> Get(long id)
+        public async Task<ActionResult<Post>> Get(Guid id)
         {
             //JobItem item = await _dataContext.Jobs.FindAsync(id);
             Post item = await _dataContext.Posts.FirstAsync<Post>(s => s.Id == id);
@@ -96,7 +96,7 @@ namespace BlazorJob.Controllers
         [HttpPost]
         public async Task<ActionResult<Post>> Post([FromBody] Post value)
         {
-            value.Id = 0;
+            //value.Id = 0;
             EntityEntry<Post> jobItem = await _dataContext.AddAsync<Post>(value);
             int id = await _dataContext.SaveChangesAsync();
 
@@ -106,7 +106,7 @@ namespace BlazorJob.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Post value)
+        public async Task<IActionResult> Put(Guid id, [FromBody] Post value)
         {
             if (id != value.Id)
             {
@@ -136,7 +136,7 @@ namespace BlazorJob.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> Delete(long id)
+        public async Task<ActionResult<bool>> Delete(Guid id)
         {
             Post post = await _dataContext.Posts.FirstAsync<Post>(s => s.Id == id);
 
@@ -153,7 +153,7 @@ namespace BlazorJob.Controllers
 
         // PATCH api/<controller>/
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Patch(long id, [FromBody] JsonPatchDocument<Post> patch)
+        public async Task<IActionResult> Patch(Guid id, [FromBody] JsonPatchDocument<Post> patch)
         {
             if (patch != null)
             {

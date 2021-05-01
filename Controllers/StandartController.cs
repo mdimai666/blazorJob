@@ -66,7 +66,7 @@ namespace BlazorJob.Controllers
                 //    (m_spam == null || m_spam == s.m_spam) &&
                 //    (dt_actual == false || s.dt_insert > dt_lastActual)
                 //)
-                .Where(s => s.Id > 0)
+                //.Where(s => s.Id > 0)
                 .AsQueryable(); // Add Where Filters Here.
 
 
@@ -94,7 +94,7 @@ namespace BlazorJob.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TEntity>> Get(long id)
+        public async Task<ActionResult<TEntity>> Get(Guid id)
         {
 
             return await modelService.Get(id);
@@ -127,7 +127,7 @@ namespace BlazorJob.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<TEntity>> Put(int id, [FromBody] TEntity value)
+        public async Task<ActionResult<TEntity>> Put(Guid id, [FromBody] TEntity value)
         {
 
             TEntity item = await modelService.Update(id, value);
@@ -166,7 +166,7 @@ namespace BlazorJob.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> Delete(long id)
+        public async Task<ActionResult<bool>> Delete(Guid id)
         {
 
             return await modelService.Delete(id);
@@ -186,7 +186,7 @@ namespace BlazorJob.Controllers
 
         // PATCH api/<controller>/
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Patch(long id, [FromBody] JsonPatchDocument<TEntity> patch)
+        public async Task<IActionResult> Patch(Guid id, [FromBody] JsonPatchDocument<TEntity> patch)
         {
             if (patch != null)
             {

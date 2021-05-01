@@ -11,19 +11,19 @@ namespace BlazorJob.Models
     public interface IBasicEntity
     {
         [Key]
-        long Id { get; set; }
+        Guid Id { get; set; }
         DateTime Date { get; set; }
-        long Author { get; set; }
+        Guid Author { get; set; }
 
     }
 
     public class BasicEntity : IBasicEntity
     {
         [Key]
-        public long Id { get; set; }
+        public Guid Id { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
-        public long Author { get; set; }
+        public Guid Author { get; set; }
 
     }
 
@@ -52,8 +52,8 @@ namespace BlazorJob.Models
         public string Value => Content;
 
         public List<string> Tags { get; set; }
-        public long Parent { get; set; }
-        public long Category { get; set; }
+        public Guid Parent { get; set; }
+        public Guid Category { get; set; }
         public Guid Guid { get; set; }
 
         [Required]
@@ -81,7 +81,7 @@ namespace BlazorJob.Models
         public static readonly string defaultStatus = "";
         public static readonly string defaultType = "";
 
-        public long PostId { get; set; }
+        public Guid PostId { get; set; }
     }
 
     public class LogEntity : SimpleEntity
@@ -91,7 +91,7 @@ namespace BlazorJob.Models
         public string Stacktrace;
         public List<string> Tags;
 
-        public long ObjectId;
+        public Guid ObjectId;
         public string ObjectEntity;
     }
 
@@ -148,4 +148,4 @@ namespace BlazorJob.Models
         Create,
         Update
     }
-    }
+}

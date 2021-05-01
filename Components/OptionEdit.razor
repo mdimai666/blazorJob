@@ -25,7 +25,7 @@
 
         <div class="form-group">
             <label for="f-author">Author</label>
-            <Microsoft.AspNetCore.Components.Forms.InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />
+            @*<Microsoft.AspNetCore.Components.Forms.InputNumber id="f-author" @bind-Value="post.Author" class="form-control" />*@
         </div>
 
         <div class="form-group">
@@ -67,7 +67,7 @@
 
     async protected override Task OnInitializedAsync()
     {
-        if (ID != null) post = await optionsService.Get(ID ?? -1);
+        if (ID != null) post = await optionsService.Get(ID ?? new Guid());
 
         _editContext = new EditContext(post);
 
@@ -104,9 +104,12 @@
 
         if (!isUpdate) return;
 
-        bool result = await optionsService.Delete((int)ID);
+        if(ID != null){
 
-        navigationManager.NavigateTo("/options");
+            bool result = await optionsService.Delete(ID.Value);
+
+            navigationManager.NavigateTo("/options");
+        }
 
         
     }
@@ -114,5 +117,5 @@
     
 
     [Parameter]
-    public long? ID { get; set; } = null;
+    public Guid? ID { get; set; } = null;
 }

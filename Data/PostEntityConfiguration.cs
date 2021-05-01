@@ -16,8 +16,8 @@ namespace BlazorJob.Data
             entity.ToTable("posts");
 
             entity.Property(e => e.Id)
-                .HasColumnName("id")
-                .UseSerialColumn();
+                .HasColumnName("id");
+                //.UseSerialColumn();
 
 
             entity.Property(e => e.Date)
@@ -37,12 +37,12 @@ namespace BlazorJob.Data
                 .HasDefaultValue("");
 
             entity.Property(e => e.Author)
-                .HasColumnName("author")
-                .HasDefaultValue(0);
+                .HasColumnName("author");
+                //.HasDefaultValue(0);
 
             entity.Property(e => e.Parent)
-                .HasColumnName("parent")
-                .HasDefaultValue(0);
+                .HasColumnName("parent");
+                //.HasDefaultValue(0);
 
             entity.Property(e => e.Status)
                 .HasColumnName("status")
@@ -60,8 +60,8 @@ namespace BlazorJob.Data
                 .HasColumnName("tags");
 
             entity.Property(e => e.Category)
-                .HasColumnName("category")
-                .HasDefaultValue(0);
+                .HasColumnName("category");
+                //.HasDefaultValue(0);
 
             entity.Property(e => e.Guid)
                 .HasColumnName("guid");

@@ -18,6 +18,9 @@ using BlazorJob.Data;
 using BlazorJob.Services;
 using System.IO;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using BlazorJob.Models;
 
 namespace BlazorJob
 {
@@ -59,22 +62,42 @@ namespace BlazorJob
                 ))
                 .AddControllers()
                 .AddNewtonsoftJson();//json patch
-                //.ConfigureApiBehaviorOptions(options =>
-                //{
-                //    //options.SuppressConsumesConstraintForFormFileParameters = true;
-                //    //options.SuppressInferBindingSourcesForParameters = true;
-                //    //options.SuppressModelStateInvalidFilter = true;
-                //    //options.SuppressMapClientErrors = true;
-                //    //options.ClientErrorMapping[404].Link = "https://httpstatuses.com/404";
-                //});
+                                     //.ConfigureApiBehaviorOptions(options =>
+                                     //{
+                                     //    //options.SuppressConsumesConstraintForFormFileParameters = true;
+                                     //    //options.SuppressInferBindingSourcesForParameters = true;
+                                     //    //options.SuppressModelStateInvalidFilter = true;
+                                     //    //options.SuppressMapClientErrors = true;
+                                     //    //options.ClientErrorMapping[404].Link = "https://httpstatuses.com/404";
+                                     //});
 
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlite(
             //        Configuration.GetConnectionString("DefaultConnection")));
 
+            //DEFAULT
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            //services.AddIdentity<ApplicationUser, Role>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    //.AddEntityFrameworkStores<ApplicationDbContext, Guid>()
+            //    .AddDefaultTokenProviders()
+            //    .AddUserStore<UserStore<ApplicationUser, Role, ApplicationDbContext, Guid>>()
+            //    .AddRoleStore<RoleStore<Role, ApplicationDbContext, Guid>>();
+
+
+            // requires
+            // using Microsoft.AspNetCore.Identity.UI.Services;
+            // using WebPWrecover.Services;
+            //https://docs.microsoft.com/ru-ru/aspnet/core/security/authentication/accconfirm?view=aspnetcore-5.0&tabs=visual-studio#configure-startup-to-support-email
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
+
+            //------------------------------------------
+            // Razor page 
 
             services.AddAntDesign();
 
@@ -114,6 +137,9 @@ namespace BlazorJob
 
             //------------------------------------------
             // Data
+
+            services.Configure<SmtpSettings>(Configuration.GetSection("Smtp"));
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();

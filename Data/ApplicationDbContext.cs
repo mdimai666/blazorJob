@@ -28,6 +28,33 @@ namespace BlazorJob.Data
             builder.ApplyConfiguration(new OptionEntityConfiguration());
             builder.ApplyConfiguration(new MetaEntityConfiguration());
 
+            //builder.Entity<ApplicationUser>(b =>
+            //{
+            //    b.Property(u => u.Id);//.HasDefaultValueSql("newsequentialid()");
+            //});
+
+            //builder.Entity<Role>(b =>
+            //{
+            //    b.Property(u => u.Id);//.HasDefaultValueSql("newsequentialid()");
+            //});
+
+            //builder.Entity<RoleClaim>(b =>
+            //{
+            //    b.Property(u => u.Id);//.HasDefaultValueSql("newsequentialid()");
+            //});
+            //builder.Entity<UserClaim>(b =>
+            //{
+            //    b.Property(u => u.Id);//.HasDefaultValueSql("newsequentialid()");
+            //});
+            //builder.Entity<UserToken>(b =>
+            //{
+            //    b.Property(u => u.UserId);//.HasDefaultValueSql("newsequentialid()");
+            //});
+            //builder.Entity<UserLogin>(b =>
+            //{
+            //    b.Property(u => u.UserId);//.HasDefaultValueSql("newsequentialid()");
+            //});
+
             OnModelCreatingPartial(builder);
         }
 

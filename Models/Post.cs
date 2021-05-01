@@ -64,15 +64,16 @@ namespace BlazorJob.Models
 
             list = beforeList.Aggregate(list, (_list, func) => { return func(_list); });
 
-            list = (from post in list
-                    where post.Id > 0
-                    orderby post.Title ascending
-                    select post).ToList();
+            //comment when Id change to Guid
+            //list = (from post in list
+            //        where post.Id > 0
+            //        orderby post.Title ascending
+            //        select post).ToList();
 
-            list = list
-                    .Where(post => post.Id > 0)
-                    .OrderBy(post => post.Title)
-                    .Select(post => post).ToList();
+            //list = list
+            //        .Where(post => post.Id > 0)
+            //        .OrderBy(post => post.Title)
+            //        .Select(post => post).ToList();
 
             return list;
         }
